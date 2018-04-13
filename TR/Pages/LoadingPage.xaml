@@ -1,0 +1,36 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TR.Pages"
+      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="TR.Pages.LoadingPage"
+      mc:Ignorable="d"
+      Title="LoadingPage">
+    <Page.Resources>
+        <Storyboard x:Key="OnLoaded1" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ed:Arc.EndAngle)" Storyboard.TargetName="arc">
+                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="360">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource OnLoaded1}"/>
+        </EventTrigger>
+    </Page.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ed:Arc Grid.Row="0" x:Name="arc"  ArcThicknessUnit="Pixel" EndAngle="0" MinHeight="250" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Stroke="#FF5097FD" StartAngle="0" MinWidth="250" StrokeThickness="3"/>
+        <TextBlock Text="Загрузка..." Grid.Row="1" HorizontalAlignment="Center" FontFamily="Verdana" FontSize="24" Margin="0,0,0,20" />
+
+    </Grid>
+</Page>
