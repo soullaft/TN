@@ -41,6 +41,7 @@ namespace TR
                 Task.Run(() =>
                 {
                     emailSender.Body = $"Код для восстановления пароля : {secretCode}";
+                    emailSender.Subject = "Восстановление пароля";
                     emailSender.Send(email);
                 });
                 AnimationHelper.StartAnimation(this, "EmailToCode", (o, ee) =>

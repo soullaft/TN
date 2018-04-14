@@ -40,6 +40,6 @@ namespace DataAccess
         /// </summary>
         Int32 Phone { get; set; }
 
-        void Update(User updatedUser);
+        void Update(IUser updatedUser);
     }
 }

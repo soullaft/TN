@@ -9,20 +9,32 @@ namespace DataAccess
     public class User : IUser
     {
         public string Name { get; set; }
+
         public string Surname { get; set; }
+
         public string Middlename { get; set; }
+
         public int Age { get; set; }
+
         public string Email { get; set; }
+
         public string Login { get; set; }
+
         public int Phone { get; set; }
 
         /// <summary>
         /// Обновляет данные о пользователе
         /// </summary>
         /// <param name="updatedUser">Новые данные о пользователе</param>
-        public void Update(User updatedUser)
+        public void Update(IUser updatedUser)
         {
-            
+            Name = updatedUser.Name;
+            Surname = updatedUser.Surname;
+            Middlename = updatedUser.Middlename;
+            Age = updatedUser.Age;
+            Email = updatedUser.Email;
+            Login = updatedUser.Login;
+            Phone = updatedUser.Phone;
         }
     }
 }
