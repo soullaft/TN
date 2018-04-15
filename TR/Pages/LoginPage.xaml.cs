@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TR.Windows;
 
 namespace TR
 {
@@ -29,6 +30,14 @@ namespace TR
         {
             MainWindow window = Application.Current.MainWindow as MainWindow;
             window.mainFrame.Content = new RecoverPasswordPage();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MenuWindow window = new MenuWindow();
+            (Application.Current.MainWindow as MainWindow).Hide();
+            window.Closed += (s, ev) => Application.Current.Shutdown();
+            window.Show();
         }
     }
 }

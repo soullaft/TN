@@ -22,14 +22,14 @@
     </Page.Triggers>
 
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="42" Margin="72.994,186.415,0,271.585" 
-            Width="155.549"
+        <TextBox HorizontalAlignment="Left" Height="42" Margin="73,186,0,272" 
+            Width="156"
                      />
         <PasswordBox HorizontalAlignment="Left" Height="42" Margin="72.994,233.415,0,224.585"
                      Width="155.549"
                      />
         <CheckBox Content="Запомнить меня" Margin="68.274,298.433,78.816,0" VerticalAlignment="Top" Width="132.91"/>
-        <Button Content="Войти" HorizontalAlignment="Left" Margin="140.005,334.929,0,0" VerticalAlignment="Top" Width="88.538"/>
+        <Button Content="Войти" HorizontalAlignment="Left" Margin="140.005,334.929,0,0" VerticalAlignment="Top" Width="88.538" Click="Button_Click"/>
         <Label x:Name="label" Content="Забыли пароль?" HorizontalAlignment="Left" Margin="72.994,384.4,0,0" VerticalAlignment="Top" Cursor="Hand" BorderBrush="Black" FontSize="14" 
                FontFamily="Verdana"
                MouseLeftButtonDown="label_MouseLeftButtonDown"/>
