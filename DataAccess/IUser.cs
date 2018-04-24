@@ -40,6 +40,11 @@ namespace DataAccess
         /// </summary>
         Int32 Phone { get; set; }
 
+        /// <summary>
+        /// Номер кабинета
+        /// </summary>
+        Int64 Room { get; set; }
+
         void Update(IUser updatedUser);
     }
 }

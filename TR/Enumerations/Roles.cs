@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess
+namespace TR.Enumerations
 {
-    public interface IDataService
+    public enum Roles
     {
-        IList<User> UsersList();
+        Admin,
+        User,
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,18 @@ namespace TR.Windows
             _prevItem = horrizontalMenu.Items[0] as MenuItem;
 
             PageHunter.ChangePage(_prevItem);
+
+            DataService service = new DataService();
+            service.UsersList();
+    }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            PageHunter.ChangePage(sender as MenuItem);
+        }
+        private void Notify_Click(object sender, RoutedEventArgs e)
+        {
+            AnimationHelper.StartAnimation(this, "Ding", (x, y) => { });
         }
     }
 }

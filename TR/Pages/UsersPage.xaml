@@ -1,0 +1,41 @@
+﻿<Page x:Class="TR.Pages.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TR.Pages"
+      mc:Ignorable="d" 
+      FontSize="16"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UsersPage">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> 
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Верхняя панель -->
+        <Grid Grid.Row="0" HorizontalAlignment="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            
+            <Label Content="Искать по:" Grid.Column="0" Margin="0 0 10 0"/>
+            <ComboBox Grid.Column="1" Width="120" x:Name="filterBox" Margin="10,0"/>
+            <TextBox Grid.Column="2" Width="140" Margin="10,4.38,0,0"/>
+            <Button Content="Найти" Grid.Column="3" Margin="20,0,20,0"/>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1">
+            <WrapPanel x:Name="usersPanel">
+                
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

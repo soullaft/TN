@@ -9,12 +9,36 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Width="800"
+        MinWidth="400"
+        MinHeight="300"
         Height="500"
         Title="ТН">
+    <Window.Resources>
+        <Storyboard x:Key="Ding">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="packIcon">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="-20"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.75" Value="20"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="packIcon">
+                <EasingColorKeyFrame KeyTime="0" Value="#FF212121"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.25" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="Black"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.75" Value="Red"/>
+                <EasingColorKeyFrame KeyTime="0:0:1" Value="Black"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="500"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -22,7 +46,7 @@
         </Grid.ColumnDefinitions>
 
         <Menu Grid.Row="0" Grid.Column="1" x:Name="horrizontalMenu">
-            <MenuItem>
+            <MenuItem Click="MenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
 
@@ -37,7 +61,7 @@
                 </MenuItem.Header>
             </MenuItem>
 
-            <MenuItem>
+            <MenuItem Click="MenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
 
@@ -52,7 +76,7 @@
                 </MenuItem.Header>
             </MenuItem>
 
-            <MenuItem>
+            <MenuItem Click="MenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
 
@@ -67,7 +91,7 @@
                 </MenuItem.Header>
             </MenuItem>
 
-            <MenuItem>
+            <MenuItem Click="MenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
 
@@ -82,7 +106,7 @@
                 </MenuItem.Header>
             </MenuItem>
 
-            <MenuItem Visibility="Collapsed">
+            <MenuItem Visibility="Collapsed" Click="MenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
 
@@ -97,7 +121,7 @@
                 </MenuItem.Header>
             </MenuItem>
 
-            <MenuItem>
+            <MenuItem Click="Notify_Click">
                 <MenuItem.Header>
                     <Grid>
 
@@ -106,10 +130,20 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <materialDesign:PackIcon Kind="Bell" Width="20" Height="20" Grid.Column="0"/>
+                        <materialDesign:PackIcon x:Name="packIcon" Kind="Bell" Width="20" Height="20" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Foreground="#FF212121">
+                            <materialDesign:PackIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </materialDesign:PackIcon.RenderTransform>
+                        </materialDesign:PackIcon>
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
         </Menu>
+        <Frame Grid.Row="1" Grid.Column="1" Source="Pages/UsersPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

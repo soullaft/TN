@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TR"
         mc:Ignorable="d"
+        Title="Авторизация"
         WindowStartupLocation="CenterScreen"
-        SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" WindowStyle="ToolWindow">
+        SizeToContent="WidthAndHeight" ResizeMode="CanMinimize">
     <Grid>
         <Frame x:Name="mainFrame" Source="Pages/LoginPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>

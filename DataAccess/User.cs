@@ -18,6 +18,8 @@ namespace DataAccess
 
         public string Email { get; set; }
 
+        public long Room { get; set; }
+
         public string Login { get; set; }
 
         public int Phone { get; set; }
@@ -32,6 +34,7 @@ namespace DataAccess
             Surname = updatedUser.Surname;
             Middlename = updatedUser.Middlename;
             Age = updatedUser.Age;
+            Room = updatedUser.Room;
             Email = updatedUser.Email;
             Login = updatedUser.Login;
             Phone = updatedUser.Phone;

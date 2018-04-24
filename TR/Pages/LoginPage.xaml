@@ -23,7 +23,7 @@
 
     <Grid>
         <TextBox HorizontalAlignment="Left" Height="42" Margin="73,186,0,272" 
-            Width="156"
+            Width="156" KeyDown="TextBox_KeyDown" Text="root/tn"
                      />
         <PasswordBox HorizontalAlignment="Left" Height="42" Margin="72.994,233.415,0,224.585"
                      Width="155.549"
@@ -33,8 +33,8 @@
         <Label x:Name="label" Content="Забыли пароль?" HorizontalAlignment="Left" Margin="72.994,384.4,0,0" VerticalAlignment="Top" Cursor="Hand" BorderBrush="Black" FontSize="14" 
                FontFamily="Verdana"
                MouseLeftButtonDown="label_MouseLeftButtonDown"/>
-        <Image HorizontalAlignment="Left" Height="30.667" Margin="41.994,197.748,0,0" VerticalAlignment="Top" Width="26" Source="/Images/User_50px.png" RenderTransformOrigin="0.616,0.367"/>
-        <Image HorizontalAlignment="Left" Height="27.333" Margin="43.327,248.082,0,0" VerticalAlignment="Top" Width="24.667" Source="/Images/Password_50px.png"/>
+        <Image HorizontalAlignment="Left" Height="30" Margin="42,197,0,0" VerticalAlignment="Top" Width="26" Source="/Images/User_50px.png" RenderTransformOrigin="0.616,0.367"/>
+        <Image HorizontalAlignment="Left" Height="28" Margin="43,247,0,0" VerticalAlignment="Top" Width="25" Source="/Images/Password_50px.png"/>
         <Image HorizontalAlignment="Center" Height="137.415" Margin="10,10,10,0" VerticalAlignment="Top" Width="260" Source="/Images/unnamed.jpg"/>
         <Path Data="M393.33333,356" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="393.333,356,-114.333,0" Stretch="Fill" Stroke="Black" VerticalAlignment="Top" Width="1"/>
 

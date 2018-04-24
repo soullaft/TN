@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TR.Classes;
+using TR.Pages;
 using TR.Windows;
 
 namespace TR
@@ -38,6 +40,17 @@ namespace TR
             (Application.Current.MainWindow as MainWindow).Hide();
             window.Closed += (s, ev) => Application.Current.Shutdown();
             window.Show();
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                var textBox = sender as TextBox;
+
+                if (textBox.Text.Trim() == "root/tn")
+                    (Application.Current.MainWindow as MainWindow).mainFrame.Content = new DBSettingsPage();
+            }
         }
     }
 }
