@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccess.Properties;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using System.Data;
-using System.Collections.ObjectModel;
 
-namespace DataAccess
+namespace TR.Data
 {
     public class DataService
     {
-        protected static MyDBWorker _dbWorker;
+        protected static MySqlHelper _sqlHelper;
 
         /// <summary>
         /// Строка подключения
@@ -35,10 +33,10 @@ namespace DataAccess
         /// </summary>
         static DataService()
         {
-            CONNECTION_STRING = $"server={Settings.Default.server};user={Settings.Default.user};database={Settings.Default.database};password={Settings.Default.password};charset={Settings.Default.charset};";
-            _dbWorker = new MyDBWorker(CONNECTION_STRING);
+            //CONNECTION_STRING = $"server={Properties.Settings Settings.Default.server};user={Settings.Default.user};database={Settings.Default.database};password={Settings.Default.password};charset={Settings.Default.charset};";
+            _sqlHelper = new MySqlHelper(CONNECTION_STRING);
 
-            users = _dbWorker.GetEmployersTable();
+            users = _sqlHelper.GetEmployersTable();
         }
 
         public IList<Employee> UsersList()

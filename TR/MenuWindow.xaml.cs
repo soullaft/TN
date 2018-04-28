@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TR.Data;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,7 +35,6 @@ namespace TR.Windows
             PageHunter.ChangePage(_prevItem);
 
             DataService service = new DataService();
-            service.UsersList();
     }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

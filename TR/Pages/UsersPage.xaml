@@ -3,13 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:TR.Pages"
+      xmlns:DA ="clr-namespace:DataAccess;assembly=DataAccess"
       mc:Ignorable="d" 
       FontSize="16"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UsersPage">
 
-    <Grid>
+    <Grid Background="{Binding ElementName=dataGrid, Path=Background}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/> 
@@ -17,25 +19,67 @@
         </Grid.RowDefinitions>
         
         <!-- Верхняя панель -->
-        <Grid Grid.Row="0" HorizontalAlignment="Right">
+        <Grid Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 0 10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
-            
-            <Label Content="Искать по:" Grid.Column="0" Margin="0 0 10 0"/>
-            <ComboBox Grid.Column="1" Width="120" x:Name="filterBox" Margin="10,0"/>
-            <TextBox Grid.Column="2" Width="140" Margin="10,4.38,0,0"/>
-            <Button Content="Найти" Grid.Column="3" Margin="20,0,20,0"/>
+
+            <Menu Grid.Column="0">
+                <MenuItem VerticalAlignment="Center">
+                <MenuItem.Header>
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="25" Height="25"  Margin=" 0 0 5 0 " Grid.Column="0"/>
+                    </Grid>
+                </MenuItem.Header>
+            </MenuItem>
+            </Menu>
+            <Label Content="Искать по:" Grid.Column="1" Margin="0 0 10 0" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="2" Width="120" x:Name="filterBox" Margin="10,0" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="3" Width="140" Margin="10,4.38,0,0" VerticalAlignment="Center"
+                     MaxLength="15"/>
+            <Button Content="Найти" Grid.Column="4" Margin="20,0,20,0" VerticalAlignment="Center"/>
         </Grid>
 
-        <ScrollViewer Grid.Row="1">
-            <WrapPanel x:Name="usersPanel">
-                
-            </WrapPanel>
+        <ScrollViewer Grid.Row="1" Margin="0 0 0 10">
+            <DataGrid x:Name="dataGrid" CanUserDeleteRows="False" SelectionMode="Extended" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                    <DataGridTextColumn Header="Кабинет" Binding="{Binding Room}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                    <DataGridTextColumn Header="Логин" Binding="{Binding Login}" />
+                </DataGrid.Columns>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Удалить пользователя" Cursor="Hand"/>
+                        <MenuItem Header="Редактировать пользователя" Cursor="Hand"/>
+                        <MenuItem Header="Отправить сообщение" Cursor="Hand"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{Binding Image}" Width="150" Height="150"/>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Label Content="Номер телефона:" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Phone}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
         </ScrollViewer>
     </Grid>
 </Page>

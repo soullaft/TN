@@ -1,27 +1,23 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.IO;
-using System.Linq;
 using System.Windows.Media.Imaging;
 
-namespace DataAccess
+namespace TR.Data
 {
     /// <summary>
-    /// Класс, помогающий работать с базой данных MySQL
+    /// Класс работающий с базой данных MySQL
     /// </summary>
-    public class MyDBWorker
+    public class MySqlHelper
     {
-
         protected static String Connection { get; private set; }
 
         /// <summary>
         /// Конструктор по-умолчанию
         /// </summary>
         /// <param name="connectionString">Строка подключения</param>
-        public MyDBWorker(String connectionString)
+        public MySqlHelper(String connectionString)
         {
             Connection = connectionString;
         }
@@ -35,7 +31,7 @@ namespace DataAccess
 
             String query = "SELECT * FROM Employers";
 
-            using(var connection = new MySqlConnection(Connection))
+            using (var connection = new MySqlConnection(Connection))
             {
                 var command = new MySqlCommand(query, connection);
                 connection.Open();
@@ -43,7 +39,7 @@ namespace DataAccess
                 {
                     if (reader.HasRows)
                     {
-                        while(reader.Read())
+                        while (reader.Read())
                         {
                             Employee user = new Employee()
                             {

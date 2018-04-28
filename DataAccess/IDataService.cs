@@ -8,6 +8,6 @@ namespace DataAccess
 {
     public interface IDataService
     {
-        IList<User> UsersList();
+        IList<Employee> UsersList();
     }
 }

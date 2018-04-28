@@ -13,20 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TR.Controls
+namespace TR.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для User.xaml
+    /// Interaction logic for EditUserPage.xaml
     /// </summary>
-    public partial class User : UserControl
+    public partial class EditUserPage : Page
     {
-        public User(BitmapImage image, String fio, Int32 room)
+        public EditUserPage()
         {
             InitializeComponent();
-
-            profileImage.Source = image;
-            profileFIO.Text = fio;
-            profileRoom.Text = room.ToString();
         }
     }
 }

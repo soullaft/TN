@@ -9,8 +9,8 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Width="800"
-        MinWidth="400"
-        MinHeight="300"
+        MinWidth="530"
+        MinHeight="450"
         Height="500"
         Title="ТН">
     <Window.Resources>
@@ -85,28 +85,13 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <materialDesign:PackIcon Kind="Email" Width="20" Height="20" Margin="0 0 5 0" Grid.Column="0"/>
-                        <TextBlock Text="Отправить сообщение" VerticalAlignment="Center" Grid.Column="1"/>
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
-
-            <MenuItem Click="MenuItem_Click">
-                <MenuItem.Header>
-                    <Grid>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
                         <materialDesign:PackIcon Kind="History" Width="20" Height="20"  Margin=" 0 0 5 0 " Grid.Column="0"/>
                         <TextBlock Text="История" VerticalAlignment="Center" Grid.Column="1"/>
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
 
-            <MenuItem Visibility="Collapsed" Click="MenuItem_Click">
+            <MenuItem Click="MenuItem_Click" Visibility="Collapsed">
                 <MenuItem.Header>
                     <Grid>
 
@@ -144,6 +129,7 @@
                 </MenuItem.Header>
             </MenuItem>
         </Menu>
-        <Frame Grid.Row="1" Grid.Column="1" Source="Pages/UsersPage.xaml" NavigationUIVisibility="Hidden"/>
+        <Frame Grid.Row="1" Grid.Column="1" Source="Pages/LoadingPage.xaml" 
+               NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
