@@ -13,6 +13,21 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -114,21 +129,57 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Filter.cs" />
+    <Compile Include="Classes\HashCode.cs" />
     <Compile Include="Classes\ImageConverter.cs" />
     <Compile Include="Classes\InternetState.cs" />
     <Compile Include="Classes\Notifier.cs" />
     <Compile Include="Classes\PageHunter.cs" />
-    <Compile Include="Controls\User.xaml.cs">
-      <DependentUpon>User.xaml</DependentUpon>
+    <Compile Include="Classes\UIHelper.cs" />
+    <Compile Include="CustomMessageWindow.xaml.cs">
+      <DependentUpon>CustomMessageWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\DataService.cs" />
-    <Compile Include="Data\Models\Employee.cs" />
-    <Compile Include="Data\MyData\MySqlHelper.cs" />
-    <Compile Include="Enumerations\Roles.cs" />
+    <Compile Include="Email\ViewModel\AttachmentControl.xaml.cs">
+      <DependentUpon>AttachmentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Employers\CurrentUser.cs" />
+    <Compile Include="Employers\EmployeeService.cs" />
+    <Compile Include="Employers\Models\Employee.cs" />
+    <Compile Include="Employers\MyData\MySqlHelper.cs" />
+    <Compile Include="Employers\Models\Roles.cs" />
+    <Compile Include="MainData\ConnectionDB.cs" />
     <Compile Include="MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\User.xaml">
+    <Compile Include="Notification\Controls\StandardNotification.xaml.cs">
+      <DependentUpon>StandardNotification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Notification\NotificationModel.cs" />
+    <Compile Include="Notification\NotifyEventArgs.cs" />
+    <Compile Include="Notification\NotificationService.cs" />
+    <Compile Include="Notification\NotificationType.cs" />
+    <Compile Include="Pages\SendEmailPage.xaml.cs">
+      <DependentUpon>SendEmailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\Device.xaml.cs">
+      <DependentUpon>Device.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\Other.xaml.cs">
+      <DependentUpon>Other.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\RequestsSender.cs" />
+    <Compile Include="Requests\Soft.xaml.cs">
+      <DependentUpon>Soft.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CustomMessageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Email\ViewModel\AttachmentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -142,13 +193,16 @@
     </Compile>
     <Compile Include="Classes\AnimationHelper.cs" />
     <Compile Include="Classes\EmailChecker.cs" />
-    <Compile Include="Classes\Hash.cs" />
     <Compile Include="Classes\Randomizer.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="EnterWindow.xaml.cs">
       <DependentUpon>EnterWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Notification\Controls\StandardNotification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AddUserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -185,11 +239,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\SendEmailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SendRequestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\UsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Requests\Device.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Requests\Other.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Requests\Soft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -233,11 +303,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -245,7 +310,7 @@
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
@@ -265,8 +330,16 @@
     <Resource Include="Images\unnamed.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Requests\" />
-    <Folder Include="Windows\" />
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\icons\poaUMH6l_131549143465173417.ico" />
@@ -277,6 +350,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="poaUMH6l_131549143465173417.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\types\excel.png" />
+    <Resource Include="Images\types\image.png" />
+    <Resource Include="Images\types\pdf.png" />
+    <Resource Include="Images\types\question.png" />
+    <Resource Include="Images\types\rar.png" />
+    <Resource Include="Images\types\txt.png" />
+    <Resource Include="Images\types\word.png" />
+    <Resource Include="Images\types\zip.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

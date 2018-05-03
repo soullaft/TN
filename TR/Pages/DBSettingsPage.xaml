@@ -8,17 +8,46 @@
       FontSize="14"
       Height="500" Width="280"
       Title="DBSettingsPage">
+    <Page.Resources>
+        <Storyboard x:Key="OnLoaded1">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="grid">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)" Storyboard.TargetName="grid">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static HorizontalAlignment.Left}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="190"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource OnLoaded1}"/>
+        </EventTrigger>
+    </Page.Triggers>
 
-    <Grid>
-        <TextBlock HorizontalAlignment="Center" Margin="13.259,-0.669,12.592,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254.149" FontSize="22" FontFamily="Harrington"><Run Text="Настрой"/><Run Text="ки подключения"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="60,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18"><Run Text="Сервер:"/><LineBreak/><Run/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="18,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="Пользователь:"/>
-        <TextBlock HorizontalAlignment="Left" Margin="28,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="База данных:"/>
-        <TextBlock HorizontalAlignment="Left" Margin="59,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18"><Run Text="Пароль:"/><LineBreak/><Run/></TextBlock>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="121,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="121,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="121,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="121,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+    <Grid x:Name="grid" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <TextBlock HorizontalAlignment="Center" Margin="0,-1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" FontSize="22" FontFamily="Harrington"><Run Text="Настрой"/><Run Text="ки подключения"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="60,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18"><Run Text="Сервер:"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="18,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="Пользователь:"/>
+        <TextBlock HorizontalAlignment="Left" Margin="28,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="База данных:"/>
+        <TextBlock HorizontalAlignment="Left" Margin="59,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18"><Run Text="Пароль:"/><LineBreak/><Run/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="121,154,0,0"  VerticalAlignment="Top" Width="120" x:Name="server"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="121,193,0,0"  VerticalAlignment="Top" Width="120" x:Name="user"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="121,235,0,0"  VerticalAlignment="Top" Width="120" x:Name="database"/>
+        <PasswordBox HorizontalAlignment="Left" Height="30" Margin="121,276,0,0"  VerticalAlignment="Top" Width="120" x:Name="password"/>
+        <Button Content="Сохранить" HorizontalAlignment="Left" Margin="136,349,0,0" VerticalAlignment="Top" Width="105" Click="SaveChanges_Click"/>
+        <Button Content="Назад" HorizontalAlignment="Left" Margin="10,458,0,0" VerticalAlignment="Top" Width="105" Click="Button_Click" Background="#FF666666" BorderBrush="#FF666666"/>
 
     </Grid>
 </Page>

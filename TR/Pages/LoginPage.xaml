@@ -6,6 +6,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:TR"
       mc:Ignorable="d"  
+      Loaded="Page_Loaded"
       FontSize="14"
       Height="500" Width="280"
       Title="LoginPage">
@@ -23,10 +24,10 @@
 
     <Grid>
         <TextBox HorizontalAlignment="Left" Height="42" Margin="73,186,0,272" 
-            Width="156" KeyDown="TextBox_KeyDown" Text="root/tn"
+            Width="156" KeyDown="TextBox_KeyDown" Text="user1" x:Name="login"
                      />
         <PasswordBox HorizontalAlignment="Left" Height="42" Margin="72.994,233.415,0,224.585"
-                     Width="155.549"
+                     Width="155.549" Password="111" x:Name="password" KeyDown="password_KeyDown"
                      />
         <CheckBox Content="Запомнить меня" Margin="68.274,298.433,78.816,0" VerticalAlignment="Top" Width="132.91"/>
         <Button Content="Войти" HorizontalAlignment="Left" Margin="140.005,334.929,0,0" VerticalAlignment="Top" Width="88.538" Click="Button_Click"/>

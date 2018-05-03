@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Media.Imaging;
+using TR.MainData;
 
 namespace TR.Data
 {
@@ -11,17 +12,6 @@ namespace TR.Data
     /// </summary>
     public class MySqlHelper
     {
-        protected static String Connection { get; private set; }
-
-        /// <summary>
-        /// Конструктор по-умолчанию
-        /// </summary>
-        /// <param name="connectionString">Строка подключения</param>
-        public MySqlHelper(String connectionString)
-        {
-            Connection = connectionString;
-        }
-
         /// <summary>
         /// Вовзращает данные из таблицы 'Employers'
         /// </summary>
@@ -31,7 +21,7 @@ namespace TR.Data
 
             String query = "SELECT * FROM Employers";
 
-            using (var connection = new MySqlConnection(Connection))
+            using (var connection = new MySqlConnection(ConnectionDB.Connection))
             {
                 var command = new MySqlCommand(query, connection);
                 connection.Open();
@@ -48,6 +38,8 @@ namespace TR.Data
                                 Phone = reader.GetString("Phone"),
                                 Room = reader.GetInt64("RNumber"),
                                 Login = reader.GetString("Login"),
+                                Type = (Roles)reader.GetInt64("Role"),
+                                Password = reader.GetString("Password"),
                                 Email = reader.GetString("Email"),
                                 Image = ConvertImage(reader["Image"]),
                             };
@@ -56,8 +48,7 @@ namespace TR.Data
                         }
                         return users;
                     }
-                    else
-                        throw new ArgumentException("Table was empty");
+                    return new ObservableCollection<Employee>();
                 }
             }
         }
@@ -72,7 +63,7 @@ namespace TR.Data
             if (!query.ToUpper().Contains("UPDATE") && !query.ToUpper().Contains("DELETE") && !query.ToUpper().Contains("INSERT"))
                 throw new FormatException("Неправильный запрос к базе данных");
 
-            using (MySqlConnection con = new MySqlConnection(Connection))
+            using (MySqlConnection con = new MySqlConnection(ConnectionDB.Connection))
             {
                 //Создаем SQL запрос
                 MySqlCommand cmd = new MySqlCommand(query, con);

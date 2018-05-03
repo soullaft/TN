@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace TR
+namespace TR.Classes
 {
     /// <summary>
-    /// Класс для работы с кодированием данных
+    /// Хэш-код
     /// </summary>
-    public static class Hash
+    public static class HashCode
     {
         /// <summary>
-        /// Возвращает ХЭШ
+        /// Генерирует хэшкод
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        private static String GenerateHash(String text)
+        public static string GenerateHash(string text)
         {
             var password = Encoding.UTF8.GetBytes(text);
 

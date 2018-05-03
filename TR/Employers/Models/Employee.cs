@@ -6,9 +6,8 @@ namespace TR.Data
     public class Employee
     {
         public Int64 ID { get; set; }
-        public String FIO { get; set; }
 
-        public int? Age { get; set; }
+        public String FIO { get; set; }
 
         public string Email { get; set; }
 
@@ -18,19 +17,23 @@ namespace TR.Data
 
         public string Phone { get; set; }
 
+        public Roles Type { get; set; }
+
+        public string Password { get; set; }
+
         public BitmapImage Image { get; set; }
 
         /// <summary>
         /// Обновляет данные о пользователе
         /// </summary>
         /// <param name="updatedUser">Новые данные о пользователе</param>
-        public void Update(Employee updatedUser)
+        public virtual void Update(Employee updatedUser)
         {
             FIO = updatedUser.FIO ?? FIO;
-            Age = updatedUser.Age ?? Age;
             Room = updatedUser.Room ?? Room;
             Email = updatedUser.Email ?? Email;
             Login = updatedUser.Login ?? Login;
+            Password = updatedUser.Password ?? Password;
             Phone = updatedUser.Phone ?? Phone;
         }
     }

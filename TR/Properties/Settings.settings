@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DataAccess.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TR.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="server" Type="System.String" Scope="User">
@@ -15,7 +15,19 @@
       <Value Profile="(Default)">fxbadawh12</Value>
     </Setting>
     <Setting Name="charset" Type="System.String" Scope="User">
-      <Value Profile="(Default)">utf8</Value>
+      <Value Profile="(Default)">utf-8</Value>
+    </Setting>
+    <Setting Name="server1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">soullaqd.beget.tech</Value>
+    </Setting>
+    <Setting Name="user1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">soullaqd_tn</Value>
+    </Setting>
+    <Setting Name="database1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">soullaqd_tn</Value>
+    </Setting>
+    <Setting Name="password1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">fxbadawh12</Value>
     </Setting>
   </Settings>
 </SettingsFile>

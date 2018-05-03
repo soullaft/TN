@@ -13,20 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TR.Controls
+namespace TR.Requests
 {
     /// <summary>
-    /// Логика взаимодействия для User.xaml
+    /// Interaction logic for Soft.xaml
     /// </summary>
-    public partial class User : UserControl
+    public partial class Soft : UserControl
     {
-        public User(BitmapImage image, String fio, Int32 room)
+        public Soft()
         {
             InitializeComponent();
-
-            profileImage.Source = image;
-            profileFIO.Text = fio;
-            profileRoom.Text = room.ToString();
         }
     }
 }

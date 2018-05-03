@@ -5,14 +5,47 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:TR.Pages"
-      xmlns:DA ="clr-namespace:DataAccess;assembly=DataAccess"
+      xmlns:classes="clr-namespace:TR.Classes"
       mc:Ignorable="d" 
       FontSize="16"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="UsersPage">
+      Title="UsersPage"
+      Background="{Binding ElementName=dataGrid, Path=Background}">
 
-    <Grid Background="{Binding ElementName=dataGrid, Path=Background}">
+    <Page.Resources>
+        <Storyboard x:Key="OnLoaded1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.125" Value="150"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.375" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        
+    </Page.Resources>
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource OnLoaded1}"/>
+        </EventTrigger>
+    </Page.Triggers>
 
+    <Grid x:Name="grid" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/> 
             <RowDefinition Height="*"/>
@@ -29,7 +62,7 @@
             </Grid.ColumnDefinitions>
 
             <Menu Grid.Column="0">
-                <MenuItem VerticalAlignment="Center">
+                <MenuItem VerticalAlignment="Center" Click="AddUser_Click">
                 <MenuItem.Header>
                     <Grid>
 
@@ -37,49 +70,53 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="25" Height="25"  Margin=" 0 0 5 0 " Grid.Column="0"/>
+                        <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="25" 
+                                                 Height="25"  Margin=" 0 0 5 0 " Grid.Column="0"
+                                                 Foreground="{Binding ElementName=searchButton, Path=Background}"/>
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
             </Menu>
             <Label Content="Искать по:" Grid.Column="1" Margin="0 0 10 0" VerticalAlignment="Center"/>
-            <ComboBox Grid.Column="2" Width="120" x:Name="filterBox" Margin="10,0" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="2" MinWidth="50" x:Name="filterBox" Margin="10,0" VerticalAlignment="Center">
+            </ComboBox>
             <TextBox Grid.Column="3" Width="140" Margin="10,4.38,0,0" VerticalAlignment="Center"
-                     MaxLength="15"/>
-            <Button Content="Найти" Grid.Column="4" Margin="20,0,20,0" VerticalAlignment="Center"/>
+                     MaxLength="15" x:Name="searchBox"/>
+            <Button Content="Найти" Grid.Column="4" Margin="20,0,20,0" VerticalAlignment="Center"
+                    x:Name="searchButton" Click="searchButton_Click"/>
         </Grid>
+        <DataGrid x:Name="dataGrid" CanUserDeleteRows="False" SelectionMode="Single" 
+                      CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True"
+                      Grid.Row="1" Margin="0 0 0 10"
+                      VerticalScrollBarVisibility="Visible" ItemsSource="{Binding UsersCollection}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                <DataGridTextColumn Header="Кабинет" Binding="{Binding Room}"/>
+                <DataGridTextColumn Header="Почтовый ящик" Binding="{Binding Email}" />
+                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" />
+            </DataGrid.Columns>
 
-        <ScrollViewer Grid.Row="1" Margin="0 0 0 10">
-            <DataGrid x:Name="dataGrid" CanUserDeleteRows="False" SelectionMode="Extended" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
-                    <DataGridTextColumn Header="Кабинет" Binding="{Binding Room}"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
-                    <DataGridTextColumn Header="Логин" Binding="{Binding Login}" />
-                </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Отправить сообщение" Cursor="Hand" Click="SendEmail_Click"/>
+                    <MenuItem Header="Редактировать пользователя" Cursor="Hand" Click="EditUser_Click"/>
+                    <MenuItem Header="Удалить пользователя" Cursor="Hand" Click="DeleteUser_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
 
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Удалить пользователя" Cursor="Hand"/>
-                        <MenuItem Header="Редактировать пользователя" Cursor="Hand"/>
-                        <MenuItem Header="Отправить сообщение" Cursor="Hand"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-
-                <DataGrid.RowDetailsTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Image Source="{Binding Image}" Width="150" Height="150"/>
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Label Content="Номер телефона:" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding Phone}" VerticalAlignment="Center"/>
-                                </StackPanel>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Image Source="{Binding Image}" Width="150" Height="150"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Label Content="Номер телефона:" VerticalAlignment="Center" FontSize="14"/>
+                                <TextBlock Text="{Binding Phone}" VerticalAlignment="Center" FontSize="14"/>
                             </StackPanel>
                         </StackPanel>
-                    </DataTemplate>
-                </DataGrid.RowDetailsTemplate>
-            </DataGrid>
-        </ScrollViewer>
+                    </StackPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
     </Grid>
 </Page>

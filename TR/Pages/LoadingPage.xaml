@@ -31,6 +31,5 @@
         </Grid.RowDefinitions>
         <ed:Arc Grid.Row="0" x:Name="arc"  ArcThicknessUnit="Pixel" EndAngle="0" MinHeight="250" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Stroke="#FF5097FD" StartAngle="0" MinWidth="250" StrokeThickness="3"/>
         <TextBlock Text="Загрузка..." Grid.Row="1" HorizontalAlignment="Center" FontFamily="Verdana" FontSize="24" Margin="0,0,0,20" />
-
     </Grid>
 </Page>

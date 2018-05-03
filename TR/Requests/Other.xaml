@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="TR.Requests.Other"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TR.Requests"
+             FontSize="14"
+             mc:Ignorable="d" 
+             Width="250" Height="250">
+    <Border x:Name="border" BorderThickness="3" CornerRadius="20" Padding="2" Background="#FFF0C57C">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Другое" HorizontalAlignment="Center" TextDecorations="{x:Null}" FontStyle="Italic"/>
+            <RichTextBox Grid.Row="1" x:Name="textBox" Margin="10,10,10,0"/>
+            <Button Content="Отправить заявку" Grid.Row="2"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,10,10,15" Cursor="Hand" Background="#FFF0C57C" BorderBrush="#FFF0C57C" />
+        </Grid>
+    </Border>
+</UserControl>

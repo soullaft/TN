@@ -4,11 +4,117 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TR.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
+      FontSize="14"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddUserPage">
-
-    <Grid>
+    <Page.Resources>
+        <Storyboard x:Key="OnLoaded1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.125" Value="150"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.375" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource OnLoaded1}"/>
+        </EventTrigger>
+    </Page.Triggers>
+    <Grid x:Name="grid" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         
+        <!-- Левая часть -->
+        <Grid Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Margin="10" x:Name="profilePhoto"/>
+                <Button Content="Загрузить изображение" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,10" Click="LoadImage_Click"/>
+            </Grid>
+        </Grid>
+        
+        <!-- Правая часть -->
+        <Grid Grid.Column="1" x:Name="rightGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Фамилия -->
+            <TextBox Grid.Row="0" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Фамилия" Margin="0,10,0,0" x:Name="surnameText"/>
+            <!-- Имя -->
+            <TextBox Grid.Row="1" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Имя" Margin="0,10,0,0" x:Name="nameText"/>
+            <!-- Отчество -->
+            <TextBox Grid.Row="2" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Отчество" Margin="0,10,0,0" x:Name="midnameText"/>
+            <!-- Номер кабинета -->
+            <TextBox Grid.Row="3" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Номер кабинета" Margin="0,10,0,0" PreviewTextInput="OnlyNumbers_Input" x:Name="roomText"/>
+            <!-- Почта -->
+            <TextBox Grid.Row="4" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Почта" Margin="0,10,0,0" x:Name="emailText"/>
+            <!-- Номер телефона -->
+            <TextBox Grid.Row="5" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Номер телефона" Margin="0,10,0,0" PreviewTextInput="OnlyNumbers_Input" x:Name="phoneText"/>
+            <!-- Логин -->
+            <TextBox Grid.Row="6" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Логин" Margin="0,10,0,0" x:Name="loginText"/>
+            <!-- Пароль -->
+            <PasswordBox Grid.Row="7" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" materialDesign:HintAssist.Hint="Пароль" Margin="0,10,0,0" x:Name="passText"/>
+            <!-- Повторите пароль -->
+            <PasswordBox Grid.Row="8" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" materialDesign:HintAssist.Hint="Повторите пароль" Margin="0,10,0,0" x:Name="repeatPassText"/>
+            <!-- Добавить -->
+            <Grid Grid.Row="9">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Margin="5,0,0,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Content="Администратор" Grid.Column="0" Grid.Row="0" Margin="10,5,0,5" VerticalAlignment="Center" GroupName="Role" x:Name="admin"/>
+                    <RadioButton Content="Тех отдел" Grid.Column="1" Grid.Row="0" Margin="10,5,0,5" VerticalAlignment="Center" GroupName="Role" x:Name="tech"/>
+
+                    <RadioButton Content="Пользователь" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Center" GroupName="Role" x:Name="user"/>
+
+                </Grid>
+                <Button Grid.Column="1" Content="Добавить" HorizontalAlignment="Center" x:Name="buttonText" Click="Button_Click" Margin="40,0,20,0"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

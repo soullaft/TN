@@ -1,17 +1,19 @@
-﻿<Window x:Class="TR.Windows.MenuWindow"
+﻿<Window x:Class="TR.MenuWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:TR"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Width="800"
+        Width="900"
         MinWidth="530"
         MinHeight="450"
-        Height="500"
+        Height="600"
+        Background="#FFFAFAFA"
         Title="ТН">
     <Window.Resources>
         <Storyboard x:Key="Ding">
@@ -29,10 +31,43 @@
                 <EasingColorKeyFrame KeyTime="0:0:1" Value="Black"/>
             </ColorAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="showNotifications">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="notificationPanel">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,-260,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.1" Value="0,0,-250,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.2" Value="0,0,-200,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,0,-150,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.4" Value="0,0,-100,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,0,-50,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="notificationPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="hideNotifications">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="notificationPanel">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.1" Value="0,0,-50,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.2" Value="0,0,-100,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,0,-150,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.4" Value="0,0,-200,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,0,-250,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.6" Value="0,0,-260,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="notificationPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-
         </EventTrigger>
     </Window.Triggers>
     <Grid>
@@ -40,96 +75,117 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Menu x:Name="horrizontalMenu" Grid.Column="0" IsEnabled="False">
+                <MenuItem Click="UsersPage_Click" x:Name="users">
+                    <MenuItem.Header>
+                        <Grid>
 
-        <Menu Grid.Row="0" Grid.Column="1" x:Name="horrizontalMenu">
-            <MenuItem Click="MenuItem_Click">
-                <MenuItem.Header>
-                    <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="AccountMultiple" Margin="0 0 5 0" Width="20" Height="20" Grid.Column="0"/>
+                            <TextBlock Text="Пользователи" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </MenuItem.Header>
+                </MenuItem>
 
-                        <materialDesign:PackIcon Kind="AccountMultiple" Margin="0 0 5 0" Width="20" Height="20" Grid.Column="0"/>
-                        <TextBlock Text="Пользователи" VerticalAlignment="Center" Grid.Column="1"/>
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
+                <MenuItem Click="RequestsPage_Click" x:Name="requests">
+                    <MenuItem.Header>
+                        <Grid>
 
-            <MenuItem Click="MenuItem_Click">
-                <MenuItem.Header>
-                    <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="MessageText"  Width="20" Height="20" Margin=" 0 0 5 0 " Grid.Column="0"/>
+                            <TextBlock Text="Заявки" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </MenuItem.Header>
+                </MenuItem>
 
-                        <materialDesign:PackIcon Kind="MessageText"  Width="20" Height="20" Margin=" 0 0 5 0 " Grid.Column="0"/>
-                        <TextBlock Text="Заявки" VerticalAlignment="Center" Grid.Column="1"/>
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
+                <MenuItem Click="sendrequest_Click" Visibility="Collapsed" x:Name="sendrequest">
+                    <MenuItem.Header>
+                        <Grid>
 
-            <MenuItem Click="MenuItem_Click">
-                <MenuItem.Header>
-                    <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="FileSend" Width="20" Height="20" Margin="0 0 5 0" Grid.Column="0"/>
+                            <TextBlock Text="Отправить заявку" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </MenuItem.Header>
+                </MenuItem>
 
-                        <materialDesign:PackIcon Kind="History" Width="20" Height="20"  Margin=" 0 0 5 0 " Grid.Column="0"/>
-                        <TextBlock Text="История" VerticalAlignment="Center" Grid.Column="1"/>
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
+                <MenuItem Click="HistoryPage_Click" x:Name="history">
+                    <MenuItem.Header>
+                        <Grid>
 
-            <MenuItem Click="MenuItem_Click" Visibility="Collapsed">
-                <MenuItem.Header>
-                    <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="History" Width="20" Height="20"  Margin=" 0 0 5 0 " Grid.Column="0"/>
+                            <TextBlock Text="История" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </MenuItem.Header>
+                </MenuItem>
+            </Menu>
+            <Menu Grid.Column="1" Margin="0 0 20 0" x:Name="dopMenu" IsEnabled="False">
+                <MenuItem Click="Notify_Click">
+                    <MenuItem.Header>
+                        <Grid>
 
-                        <materialDesign:PackIcon Kind="FileSend" Width="20" Height="20" Margin="0 0 5 0" Grid.Column="0"/>
-                        <TextBlock Text="Отправить заявку" VerticalAlignment="Center" Grid.Column="1"/>
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-            <MenuItem Click="Notify_Click">
-                <MenuItem.Header>
-                    <Grid>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <materialDesign:PackIcon x:Name="packIcon" Kind="Bell" Width="20" Height="20" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Foreground="#FF212121">
-                            <materialDesign:PackIcon.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </materialDesign:PackIcon.RenderTransform>
-                        </materialDesign:PackIcon>
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
-        </Menu>
-        <Frame Grid.Row="1" Grid.Column="1" Source="Pages/LoadingPage.xaml" 
-               NavigationUIVisibility="Hidden"/>
+                            <materialDesign:PackIcon x:Name="packIcon" Kind="Bell" Width="20" Height="20" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Foreground="#FF212121">
+                                <materialDesign:PackIcon.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </materialDesign:PackIcon.RenderTransform>
+                            </materialDesign:PackIcon>
+                        </Grid>
+                    </MenuItem.Header>
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <Frame Grid.Row="1" Source="Pages/LoadingPage.xaml" x:Name="mainFrame" 
+               NavigationUIVisibility="Hidden">
+        </Frame>
+        <!--Уведомления-->
+        <Border BorderThickness="3" CornerRadius="15" Padding="2" Grid.Row="1" Opacity="0.8" Width="260" HorizontalAlignment="Right" 
+               Margin="0,0,-300,0" Visibility="Collapsed" x:Name="notificationPanel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Уведомления:" Grid.Row="0" FontSize="24" HorizontalAlignment="Center"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+                    <ScrollViewer.Resources>
+                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>
+                    </ScrollViewer.Resources>
+                    <StackPanel Orientation="Vertical" x:Name="kek">
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

@@ -1,9 +1,13 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Mail;
+using System.Windows;
 using TR.Classes;
+using TR.Email.ViewModel;
+using TR.Pages;
 
 namespace TR.Email
 {
@@ -12,6 +16,7 @@ namespace TR.Email
     /// </summary>
     public class EmailSender
     {
+        #region Публичные свойства
         /// <summary>
         /// Получатель сообщения
         /// </summary>
@@ -28,14 +33,17 @@ namespace TR.Email
         public String Subject { get; set; }
 
         /// <summary>
+        /// Коллекция вложений
+        /// </summary>
+        public static ObservableCollection<AttachmentControl> attachmentsView = new ObservableCollection<AttachmentControl>();
+
+        #endregion
+
+        #region Приватные переменные
+        /// <summary>
         /// Почтовые ящики
         /// </summary>
         protected static List<MailAddress> emails = new List<MailAddress>();
-
-        /// <summary>
-        /// Вложения
-        /// </summary>
-        protected static List<Attachment> attachments = new List<Attachment>();
 
         /// <summary>
         /// Сообщение электронной почты
@@ -59,19 +67,26 @@ namespace TR.Email
             EnableSsl = true,
         };
 
+        #endregion
 
 
         /// <summary>
         /// Добавить вложения(файлы) 
         /// </summary>
-        public void ConvertAttachments()
+        public void AddAttachments()
         {
             //Пробегаемся по каждому выбранному файлу и добавляем его в коллекцию вложений
             foreach (var item in OpenDialog())
-                attachments.Add(new Attachment(item));
+            {
+                attachmentsView.Add(new AttachmentControl(item));
+            }
         }
 
-        private static IEnumerable<string> OpenDialog()
+        /// <summary>
+        /// Открывает окно для выбора файлов
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<string> OpenDialog()
         {
             // Открываем диалоговое окно для выбора вложений(файлов)
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -84,7 +99,7 @@ namespace TR.Email
             if (openFileDialog.ShowDialog() == true)
                 return openFileDialog.FileNames;
             else
-                throw new Exception("");
+                return new List<String>();
         }
 
 
@@ -120,21 +135,10 @@ namespace TR.Email
         /// <summary>
         /// Очищает список файлов для рассылки
         /// </summary>
-        private static void ClearAttachments()
+        private  void ClearAttachments()
         {
-            attachments.Clear();
+            attachmentsView.Clear();
         }
-
-        /// <summary>
-        /// Добавляет вложения(файлы) к письму, которое будет разослано
-        /// </summary>
-        private static void AddAttachments()
-        {
-            if (attachments != null)
-                foreach (var item in attachments)
-                    mailMessage.Attachments.Add(item);
-        }
-
 
         /// <summary>
         /// Шаблон стандартного сообщения
@@ -155,40 +159,29 @@ namespace TR.Email
         /// <summary>
         /// Отправить сообщение
         /// </summary>
-        /// <param name="emails">Список почтовых ящиков</param>
+        /// <param name="emails">Почтовый ящик получателя</param>
         /// <param name="withAttach">отправить сообщение с файлами(вложениями)</param>
-        public void Send(IEnumerable<String> emails, Boolean withAttach = true)
+        public void Send(String To = "")
         {
+            //Кому будет отправлено письмо
+            mailMessage.To.Add(this.To);
 
-            //Добавляем почтовые ящики, которые выбраны для рассылки
-            AddEmails(emails);
+            foreach (var item in attachmentsView)
+                mailMessage.Attachments.Add(new Attachment(item.Path));
 
-            //Если сообщение с вложениями, то добавляем вложения к письму
-            if (withAttach == true) AddAttachments();
+            //Тело сообщения
+            mailMessage.Body = Body;
 
-            StandardMessage();
+            //Тема сообщения
+            mailMessage.Subject = Subject;
 
-            //Задействуем сборку мусора
-            GC.Collect();
+            //Отправляем сообщение
+            smtp.Send(mailMessage);
 
             ClearAttachments();
 
-        }
-
-        /// <summary>
-        /// Отправить сообщение
-        /// </summary>
-        /// <param name="to">Кому отправить</param>
-        public void Send(String to)
-        {
-            if (EmailChecker.IsValidEmail(to))
-            {
-                mailMessage.To.Add(to);
-
-                StandardMessage();
-
-                ClearEmails();
-            }
+            //Задействуем сборку мусора
+            GC.Collect();
         }
     }
 }

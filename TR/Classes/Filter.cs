@@ -11,12 +11,16 @@ namespace TR.Classes
     {
         public static ObservableCollection<String> FiltersList { get; set; }
 
-        public Filter()
+        static Filter()
         {
             FiltersList = new ObservableCollection<string>()
             {
                "Фамилии", "Номеру телефона", "Почтовому ящику", "Логину"
             };
+        }
+        public void Search()
+        {
+
         }
     }
 }
