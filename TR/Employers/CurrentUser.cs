@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TR.Data;
+﻿using TR.Data;
 
-namespace TR.Employers
+namespace TR.Data
 {
-    public class CurrentUser : Employee
+    /// <summary>
+    /// Предоставляет основную информацию и вошедшем пользователе
+    /// </summary>
+    public class CurrentUser
     {
-        public CurrentUser()
-        {
-
-        }
-        public override void Update(Employee updatedUser)
-        {
-            return;
-        }
+        /// <summary>
+        /// Роль пользователя
+        /// </summary>
+        public static Roles Role { get; set; }
+        /// <summary>
+        /// Идентификатор пользователя
+        /// </summary>
+        public static long ID { get; set; }
     }
 }

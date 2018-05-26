@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:TR.Pages"
-      FontSize="14"
+      FontSize="16"
+      Background="#FFFAFAFA"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SendEmailPage">
@@ -67,7 +68,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Grid.Column="1" BorderBrush="#FFA6A3A3" Background="#FFA6A3A3" HorizontalAlignment="Right" Click="Cansel_Click">
+            <Button Grid.Column="1" BorderBrush="#FFA6A3A3" Background="#FFA6A3A3" HorizontalAlignment="Left" Click="Cansel_Click">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Delete" Width="25" Height="20" VerticalAlignment="Center"/>
@@ -98,7 +99,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Вложения:" Grid.Row="0"/>
             <WrapPanel Grid.Row="1" x:Name="attachmentsPanel" Orientation="Horizontal">
                 <ItemsControl ItemsSource="{Binding attachmentsView}"/>
             </WrapPanel>

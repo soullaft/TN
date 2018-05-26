@@ -19,6 +19,8 @@ namespace TR.Data
 
         public Roles Type { get; set; }
 
+        public string Status { get; set; }
+
         public string Password { get; set; }
 
         public BitmapImage Image { get; set; }
@@ -35,6 +37,7 @@ namespace TR.Data
             Login = updatedUser.Login ?? Login;
             Password = updatedUser.Password ?? Password;
             Phone = updatedUser.Phone ?? Phone;
+            Status = updatedUser.Status ?? Status;
         }
     }
 }

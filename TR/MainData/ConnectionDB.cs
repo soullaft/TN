@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using TR.Properties;
+﻿using TR.Properties;
 
 namespace TR.MainData
 {

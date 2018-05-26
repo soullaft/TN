@@ -7,8 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using TR.Classes;
 using TR.Data;
+using TR.ExcelHelper;
 using TR.MainData;
 
 namespace TR.Pages
@@ -19,20 +19,28 @@ namespace TR.Pages
     public partial class AddUserPage : Page
     {
         #region Приватные поля
+        
+
+        ExcelReader excelReader;
+
+        #endregion
+
         /// <summary>
         /// Путь до выбранного изображения
         /// </summary>
-        string path;
+        public string Path { get; set; }
 
-        #endregion
+
         public AddUserPage()
         {
             InitializeComponent();
+
+            excelReader = new ExcelReader();
+
+            usersGrid.DataContext = excelReader;
         }
-        public AddUserPage(Employee employee)
-        {
-            InitializeComponent();
-        }
+
+
         /// <summary>
         /// Происходит при загрузки изображения
         /// </summary>
@@ -57,11 +65,7 @@ namespace TR.Pages
                     if (image.Width <= 1280 && image.Height <= 720)
                     {
                         profilePhoto.Source = image;
-                        path = dialog.FileName;
-                    }
-                    else
-                    {
-                        new CustomMessageWindow("Выберите изображение меньшего размера").ShowDialog();
+                        Path = dialog.FileName;
                     }
                 }
                 catch (Exception ex)
@@ -82,92 +86,115 @@ namespace TR.Pages
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Добавление пользователя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            if (profilePhoto.Source != null && !String.IsNullOrEmpty(surnameText.Text) && !String.IsNullOrEmpty(nameText.Text) && !String.IsNullOrEmpty(midnameText.Text)
-                && !String.IsNullOrEmpty(roomText.Text) && !String.IsNullOrEmpty(emailText.Text) 
+            if (!String.IsNullOrEmpty(surnameText.Text) && !String.IsNullOrEmpty(nameText.Text) && !String.IsNullOrEmpty(midnameText.Text)
+                && !String.IsNullOrEmpty(roomText.Text) && !String.IsNullOrEmpty(emailText.Text)
                 && !String.IsNullOrEmpty(phoneText.Text) && !String.IsNullOrEmpty(loginText.Text) && !String.IsNullOrEmpty(passText.Password)
-                && !String.IsNullOrEmpty(repeatPassText.Password) && (passText.Password == repeatPassText.Password) 
+                && !String.IsNullOrEmpty(repeatPassText.Password) && (passText.Password == repeatPassText.Password)
                 && ((bool)admin.IsChecked || (bool)user.IsChecked || (bool)tech.IsChecked))
             {
-                using (var connection = new MySqlConnection(ConnectionDB.Connection))
+
+                Roles role;
+
+                if ((bool)admin.IsChecked)
+                    role = Roles.Admin;
+                else if ((bool)tech.IsChecked)
+                    role = Roles.Technical;
+                else
+                    role = Roles.User;
+
+                Employee employee = new Employee()
                 {
+                    FIO = surnameText.Text.Trim() + " " + nameText.Text.Trim() + " " + midnameText.Text.Trim(),
+                    Room = Convert.ToInt64(roomText.Text.Trim()),
+                    Email = emailText.Text.Trim(),
+                    Phone = phoneText.Text.Trim(),
+                    Type = role,
+                    Login = loginText.Text.Trim(),
+                    Image = new BitmapImage(new Uri(Path)),
+                    Password = HashCode.GenerateHash(repeatPassText.Password.Trim())
+                };
 
-                    string query = "INSERT INTO Employers (RNumber,FIO,Phone,Email,Login,Password,Image, Role) values (@Room,@FIO,@Phone,@Email,@Login,@Password,@Image, @Role)";
+                EmployeeService.AddUserAsync(employee, Path.Substring(Path.LastIndexOf(".") + 1), profilePhoto.Source);
 
-                    var cmd = new MySqlCommand(query, connection);
-
-                    Employee employee = new Employee()
-                    {
-                        //ID = EmployeeService.UsersCollection[EmployeeService.UsersCollection.Count - 1].ID + 1,
-                        FIO = surnameText.Text.Trim() + " " + nameText.Text.Trim() + " " + midnameText.Text.Trim(),
-                        Room = Convert.ToInt64(roomText.Text.Trim()),
-                        Email = emailText.Text.Trim(),
-                        Phone = phoneText.Text.Trim(),
-                        Login = loginText.Text.Trim(),
-                        Image = new BitmapImage(new Uri(path)),
-                    };
-
-                    Roles role;
-
-                    if ((bool)admin.IsChecked)
-                        role = Roles.Admin;
-                    else if ((bool)tech.IsChecked)
-                        role = Roles.Technical;
-                    else
-                        role = Roles.User;
-
-                    cmd.Parameters.Add("@Role", MySqlDbType.Int64);
-                    cmd.Parameters["@Role"].Value = Convert.ToInt64(role);
-
-                    cmd.Parameters.Add("@FIO", MySqlDbType.VarChar);
-                    cmd.Parameters["@FIO"].Value = employee.FIO;
-
-                    cmd.Parameters.Add("@Room", MySqlDbType.Int64);
-                    cmd.Parameters["@Room"].Value = employee.Room;
-
-                    cmd.Parameters.Add("@Email", MySqlDbType.VarChar);
-                    cmd.Parameters["@Email"].Value = employee.Email;
-
-                    cmd.Parameters.Add("@Phone", MySqlDbType.Int64);
-                    cmd.Parameters["@Phone"].Value = employee.Phone;
-
-                    cmd.Parameters.Add("@Login", MySqlDbType.VarChar);
-                    cmd.Parameters["@Login"].Value = employee.Login;
-
-                    cmd.Parameters.Add("@Password", MySqlDbType.VarChar);
-                    cmd.Parameters["@Password"].Value = HashCode.GenerateHash(repeatPassText.Password.Trim());
-
-                    cmd.Parameters.Add("@Image", MySqlDbType.LongBlob);
-
-                    if (path.Substring(path.LastIndexOf(".") + 1) == "png")
-                        cmd.Parameters["@Image"].Value = ImageConverter.ConvertImage(new PngBitmapEncoder(), profilePhoto.Source);
-                    else if (path.Substring(path.LastIndexOf(".") + 1) == "jpg" || path.Substring(path.LastIndexOf(".") + 1) == "jpeg")
-                        cmd.Parameters["@Image"].Value = ImageConverter.ConvertImage(new JpegBitmapEncoder(), profilePhoto.Source);
-                    else
-                    {
-                        new CustomMessageWindow("Выберите другое изображение").ShowDialog();
-                        return;
-                    }
-
-                    EmployeeService.UsersCollection.Add(employee);
-
-                    (Application.Current.MainWindow as MenuWindow).Content = new UsersPage();
-                    
-                    Task.Run(()=> 
-                    {
-                        connection.Open();
-                        cmd.ExecuteNonQuery();
-                    });
-                }
+                CanseAddUserGrid_Click(this, new RoutedEventArgs());
             }
-            else
-                new CustomMessageWindow("Все поля должны быть заполнены!").ShowDialog();
         }
 
-        private static void EncodeTo()
+        /// <summary>
+        /// Показать пользователей(Excel)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowExcelUsers_Click(object sender, RoutedEventArgs e)
+        {
+            if (!excelReader.OpenFile())
+                return;
+
+            usersTable.Visibility = Visibility.Visible;
+            usersGrid.Visibility = Visibility.Visible;
+
+            AnimationHelper.StartAnimation(this, "ShowUsersTable", delegate { });
+        }
+
+        /// <summary>
+        /// Добавить пользователей через excel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddUsersExcel_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
+        /// <summary>
+        /// Отменить добавление пользователей через excel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanselAddUsers_Click(object sender, RoutedEventArgs e)
+        {
+            excelReader.usersList.Clear();
+
+            AnimationHelper.StartAnimation(this, "HideUsersTable", delegate 
+            {
+                usersTable.Visibility = Visibility.Collapsed;
+                usersGrid.Visibility = Visibility.Collapsed;
+            });
+        }
+
+        /// <summary>
+        /// Показать "Добавление пользователя"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddUserGrid_Click(object sender, RoutedEventArgs e)
+        {
+            addUserGrid.Visibility = Visibility.Visible;
+
+            AnimationHelper.StartAnimation(this, "ShowUserTable", delegate { });
+        }
+
+        /// <summary>
+        /// Отменить "Добавление пользователя"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanseAddUserGrid_Click(object sender, RoutedEventArgs e)
+        {
+            AnimationHelper.StartAnimation(this, "HideUserTable", delegate
+            {
+                surnameText.Text = null;
+                nameText.Text = null;
+            });
+        }
+
+        
     }
 }

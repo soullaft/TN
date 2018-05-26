@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:TR"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Width="900"
+        Height="700"
         MinWidth="530"
         MinHeight="450"
-        Height="600"
         Background="#FFFAFAFA"
         Title="ТН">
     <Window.Resources>
@@ -33,8 +34,8 @@
         </Storyboard>
         <Storyboard x:Key="showNotifications">
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="notificationPanel">
-                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,-260,0"/>
-                <EasingThicknessKeyFrame KeyTime="0:0:0.1" Value="0,0,-250,0"/>
+                <EasingThicknessKeyFrame KeyTime="0" Value="0,0,-300,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.1" Value="0,0,-300,0"/>
                 <EasingThicknessKeyFrame KeyTime="0:0:0.2" Value="0,0,-200,0"/>
                 <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,0,-150,0"/>
                 <EasingThicknessKeyFrame KeyTime="0:0:0.4" Value="0,0,-100,0"/>
@@ -56,7 +57,7 @@
                 <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,0,-150,0"/>
                 <EasingThicknessKeyFrame KeyTime="0:0:0.4" Value="0,0,-200,0"/>
                 <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,0,-250,0"/>
-                <EasingThicknessKeyFrame KeyTime="0:0:0.6" Value="0,0,-260,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.6" Value="0,0,-300,0"/>
             </ThicknessAnimationUsingKeyFrames>
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="notificationPanel">
                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
@@ -65,12 +66,18 @@
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="{x:Static Visibility.Collapsed}"/>
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
+
+        <!--<Image x:Key="myImage" Source="sky-photo-beautiful-sunset-high-resolution-stock-photo-large-wallpaper-blue-gold-clouds-2.jpg">
+
+        </Image>
+        <VisualBrush x:Key="myBrush"  Visual="{StaticResource myImage}"/>-->
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
         </EventTrigger>
     </Window.Triggers>
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -111,7 +118,7 @@
                     </MenuItem.Header>
                 </MenuItem>
 
-                <MenuItem Click="sendrequest_Click" Visibility="Collapsed" x:Name="sendrequest">
+                <MenuItem Click="SendRequest_Click" Visibility="Collapsed" x:Name="sendrequest">
                     <MenuItem.Header>
                         <Grid>
 
@@ -122,6 +129,23 @@
 
                             <materialDesign:PackIcon Kind="FileSend" Width="20" Height="20" Margin="0 0 5 0" Grid.Column="0"/>
                             <TextBlock Text="Отправить заявку" VerticalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </MenuItem.Header>
+                </MenuItem>
+
+                
+
+                <MenuItem Click="UsersRequests_Click" x:Name="usersRequest" Visibility="Collapsed">
+                    <MenuItem.Header>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <materialDesign:PackIcon Kind="FolderStar" Width="20" Height="20"  Margin=" 0 0 5 0 " Grid.Column="0"/>
+                            <TextBlock Text="Ваши заявки" VerticalAlignment="Center" Grid.Column="1"/>
                         </Grid>
                     </MenuItem.Header>
                 </MenuItem>
@@ -141,6 +165,8 @@
                     </MenuItem.Header>
                 </MenuItem>
             </Menu>
+
+
             <Menu Grid.Column="1" Margin="0 0 20 0" x:Name="dopMenu" IsEnabled="False">
                 <MenuItem Click="Notify_Click">
                     <MenuItem.Header>
@@ -151,7 +177,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <materialDesign:PackIcon x:Name="packIcon" Kind="Bell" Width="20" Height="20" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Foreground="#FF212121">
+                            <materialDesign:PackIcon x:Name="packIcon" Kind="Bell" Width="23" Height="23" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Foreground="#FF212121">
                                 <materialDesign:PackIcon.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -166,12 +192,14 @@
                 </MenuItem>
             </Menu>
         </Grid>
-        <Frame Grid.Row="1" Source="Pages/LoadingPage.xaml" x:Name="mainFrame" 
-               NavigationUIVisibility="Hidden">
-        </Frame>
-        <!--Уведомления-->
-        <Border BorderThickness="3" CornerRadius="15" Padding="2" Grid.Row="1" Opacity="0.8" Width="260" HorizontalAlignment="Right" 
-               Margin="0,0,-300,0" Visibility="Collapsed" x:Name="notificationPanel">
+
+        <Grid Grid.Row="1" Panel.ZIndex="1">
+            <Frame  Source="Pages/LoadingPage.xaml" x:Name="mainFrame" 
+               NavigationUIVisibility="Hidden"/>
+        </Grid>
+    <!--Уведомления-->
+        <Border BorderThickness="3" CornerRadius="15" Padding="2" Grid.Row="1" Opacity="0.8" Width="300" HorizontalAlignment="Right" 
+               Margin="0,0,-300,0" Panel.ZIndex="1" Visibility="Collapsed" x:Name="notificationPanel" Background="#FFE8E8E8">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TR.Pages"
       mc:Ignorable="d" 
+      FontSize="14"
+      Background="#FFFAFAFA"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RequestsPage">
     <Page.Resources>
@@ -40,6 +42,69 @@
                 <TranslateTransform/>
             </TransformGroup>
         </Grid.RenderTransform>
-        <TextBlock Text="Заявки" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!-- Top menu -->
+        <Grid Grid.Row="0" Margin="0, 0, 0, 10">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <RadioButton Content="Принятые" GroupName="Requests" Grid.Column="0" 
+                         HorizontalAlignment="Center"
+                         Checked="AcceptedRequests_Checked"/>
+            <RadioButton Content="Завершенные" GroupName="Requests" Grid.Column="1" 
+                         HorizontalAlignment="Center"/>
+            <RadioButton Content="В ожидании" GroupName="Requests" Grid.Column="2" 
+                         HorizontalAlignment="Center" 
+                         IsChecked="True" Checked="WaitingRequests_Checked"/>
+            <RadioButton Content="Отмененные" GroupName="Requests" Grid.Column="3" 
+                         HorizontalAlignment="Center"
+                         Checked="CanseledRequests_Checked"/>
+            
+        </Grid>
+        <DataGrid Grid.Row="1" x:Name="datagrid"
+                  CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True"
+                  CanUserDeleteRows="False" SelectionMode="Single" >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Идентификатор" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Пользователь" Binding="{Binding FIOUser}"/>
+                <DataGridTextColumn Header="Время" Binding="{Binding DateTime}" />
+            </DataGrid.Columns>
+
+
+
+            <DataGrid.ContextMenu>
+                <ContextMenu x:Name="contextMenu">
+                    <MenuItem Cursor="Hand" Click="AcceptRequest_Click" x:Name="acceptItem">
+                        <MenuItem.Header>
+                            <TextBlock Text="Одобрить" Foreground="#FF2CAC50"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+
+                    <MenuItem Cursor="Hand" Click="CanselRequest_Click" x:Name="canselItem">
+                        <MenuItem.Header>
+                            <TextBlock Text="Отменить" Foreground="#FFC92020"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Grid Margin="20,0,0,0">
+                        <TextBlock Text="{Binding Text}"/>
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+
+        </DataGrid>
     </Grid>
 </Page>

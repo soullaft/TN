@@ -17,23 +17,52 @@
                 <EasingColorKeyFrame KeyTime="0:0:0.4" Value="#DD2C89F7"/>
             </ColorAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="loadingPage">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="grid1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="190"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        
     </Page.Resources>
     <Page.Triggers>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
     </Page.Triggers>
 
-    <Grid>
+
+    <Grid x:Name="grid1" RenderTransformOrigin="0.5,0.5">
+
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+
         <TextBox HorizontalAlignment="Left" Height="42" Margin="73,186,0,272" 
             Width="156" KeyDown="TextBox_KeyDown" Text="user1" x:Name="login"
-                     />
+                     >
+            <TextBox.ToolTip>
+                <ToolTip Opacity="0.75">
+                    <TextBlock Text="Введите логин"/>
+                </ToolTip>
+            </TextBox.ToolTip>
+        </TextBox>
         <PasswordBox HorizontalAlignment="Left" Height="42" Margin="72.994,233.415,0,224.585"
-                     Width="155.549" Password="111" x:Name="password" KeyDown="password_KeyDown"
-                     />
+                     Width="155.549" Password="111" x:Name="password"
+                     >
+            <PasswordBox.ToolTip>
+                <ToolTip Opacity="0.75">
+                    <TextBlock Text="Введите пароль"/>
+                </ToolTip>
+            </PasswordBox.ToolTip>
+        </PasswordBox>
         <CheckBox Content="Запомнить меня" Margin="68.274,298.433,78.816,0" VerticalAlignment="Top" Width="132.91"/>
-        <Button Content="Войти" HorizontalAlignment="Left" Margin="140.005,334.929,0,0" VerticalAlignment="Top" Width="88.538" Click="Button_Click"/>
+        <Button IsEnabled="False" x:Name="enterButton" Content="Войти" HorizontalAlignment="Left" Margin="140.005,334.929,0,0" VerticalAlignment="Top" Width="88.538" Click="EnterButton_Click"/>
         <Label x:Name="label" Content="Забыли пароль?" HorizontalAlignment="Left" Margin="72.994,384.4,0,0" VerticalAlignment="Top" Cursor="Hand" BorderBrush="Black" FontSize="14" 
-               FontFamily="Verdana"
-               MouseLeftButtonDown="label_MouseLeftButtonDown"/>
+               FontFamily="Verdana" IsEnabled="False"
+               MouseLeftButtonDown="RecoverPassowordLabel_Click" Foreground="#FF2196F3"/>
         <Image HorizontalAlignment="Left" Height="30" Margin="42,197,0,0" VerticalAlignment="Top" Width="26" Source="/Images/User_50px.png" RenderTransformOrigin="0.616,0.367"/>
         <Image HorizontalAlignment="Left" Height="28" Margin="43,247,0,0" VerticalAlignment="Top" Width="25" Source="/Images/Password_50px.png"/>
         <Image HorizontalAlignment="Center" Height="137.415" Margin="10,10,10,0" VerticalAlignment="Top" Width="260" Source="/Images/unnamed.jpg"/>

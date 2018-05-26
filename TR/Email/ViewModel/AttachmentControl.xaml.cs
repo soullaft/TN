@@ -41,6 +41,7 @@ namespace TR.Email.ViewModel
                 fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/image.png"));
             else if(type == "TXT" || type == "LOG")
                 fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/txt.png"));
+
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TR.Classes
+namespace TR
 {
     public class Filter 
     {

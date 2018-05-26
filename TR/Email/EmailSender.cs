@@ -1,13 +1,9 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Mail;
-using System.Windows;
-using TR.Classes;
 using TR.Email.ViewModel;
-using TR.Pages;
 
 namespace TR.Email
 {
@@ -88,18 +84,14 @@ namespace TR.Email
         /// <returns></returns>
         private IEnumerable<string> OpenDialog()
         {
-            // Открываем диалоговое окно для выбора вложений(файлов)
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog() { Filter = "All Files (*.*)|*.*", Multiselect = true })
             {
-                Filter = "All Files (*.*)|*.*",
-                Multiselect = true
-            };
-
-            //Если пользователь нажал "Ок"
-            if (openFileDialog.ShowDialog() == true)
-                return openFileDialog.FileNames;
-            else
-                return new List<String>();
+                //Если пользователь нажал "Ок"
+                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    return openFileDialog.FileNames;
+                else
+                    return new List<String>();
+            }       
         }
 
 

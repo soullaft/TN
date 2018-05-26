@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TR.Classes
+namespace TR
 {
     /// <summary>
     /// Представляет методы для работы с UI частью 

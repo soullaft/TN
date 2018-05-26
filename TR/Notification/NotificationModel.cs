@@ -23,5 +23,10 @@
         /// Текст уведомления
         /// </summary>
         public string Text { get; set; }
+
+        /// <summary>
+        /// Получатель уведомления
+        /// </summary>
+        public long? Target { get; set; }
     }
 }

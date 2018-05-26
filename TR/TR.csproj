@@ -97,7 +97,20 @@
   <PropertyGroup>
     <ApplicationIcon>poaUMH6l_131549143465173417.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
+    <Reference Include="ExcelDataReader, Version=3.4.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.3.4.0\lib\net45\ExcelDataReader.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.4.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.DataSet.3.4.0\lib\net45\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -108,8 +121,17 @@
     <Reference Include="MySql.Data, Version=6.9.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.11\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="NotificationsExtensions.Win10, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NotificationsExtensions.Win10.14332.0.2\lib\dotnet\NotificationsExtensions.Win10.dll</HintPath>
+    </Reference>
+    <Reference Include="QueryString.NETCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QueryString.NET.1.0.0\lib\dotnet\QueryString.NETCore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -128,24 +150,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\Filter.cs" />
-    <Compile Include="Classes\HashCode.cs" />
-    <Compile Include="Classes\ImageConverter.cs" />
-    <Compile Include="Classes\InternetState.cs" />
-    <Compile Include="Classes\Notifier.cs" />
-    <Compile Include="Classes\PageHunter.cs" />
-    <Compile Include="Classes\UIHelper.cs" />
-    <Compile Include="CustomMessageWindow.xaml.cs">
-      <DependentUpon>CustomMessageWindow.xaml</DependentUpon>
+    <Compile Include="ForUser\RequestsService.cs" />
+    <Compile Include="ForUser\URequest.xaml.cs">
+      <DependentUpon>URequest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Filter.cs" />
+    <Compile Include="Helpers\HashCode.cs" />
+    <Compile Include="Helpers\ImageConverter.cs" />
+    <Compile Include="Helpers\InternetState.cs" />
+    <Compile Include="Helpers\PageHunter.cs" />
+    <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Email\ViewModel\AttachmentControl.xaml.cs">
       <DependentUpon>AttachmentControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Employers\CurrentUser.cs" />
     <Compile Include="Employers\EmployeeService.cs" />
     <Compile Include="Employers\Models\Employee.cs" />
-    <Compile Include="Employers\MyData\MySqlHelper.cs" />
     <Compile Include="Employers\Models\Roles.cs" />
+    <Compile Include="ExcelHelper\ExcelReader.cs" />
     <Compile Include="MainData\ConnectionDB.cs" />
     <Compile Include="MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
@@ -154,31 +176,32 @@
       <DependentUpon>StandardNotification.xaml</DependentUpon>
     </Compile>
     <Compile Include="Notification\NotificationModel.cs" />
-    <Compile Include="Notification\NotifyEventArgs.cs" />
     <Compile Include="Notification\NotificationService.cs" />
     <Compile Include="Notification\NotificationType.cs" />
+    <Compile Include="Notification\ContexTrayMenu.cs" />
     <Compile Include="Pages\SendEmailPage.xaml.cs">
       <DependentUpon>SendEmailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UsersRequestsPage.xaml.cs">
+      <DependentUpon>UsersRequestsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Requests\Device.xaml.cs">
+    <Compile Include="Request\Request.cs" />
+    <Compile Include="Request\RequestsService.cs" />
+    <Compile Include="Request\State.cs" />
+    <Compile Include="SendRequests\Device.xaml.cs">
       <DependentUpon>Device.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Requests\Other.xaml.cs">
+    <Compile Include="SendRequests\Other.xaml.cs">
       <DependentUpon>Other.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Requests\RequestsSender.cs" />
-    <Compile Include="Requests\Soft.xaml.cs">
+    <Compile Include="SendRequests\Soft.xaml.cs">
       <DependentUpon>Soft.xaml</DependentUpon>
     </Compile>
-    <Page Include="CustomMessageWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Email\ViewModel\AttachmentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,14 +214,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\AnimationHelper.cs" />
-    <Compile Include="Classes\EmailChecker.cs" />
-    <Compile Include="Classes\Randomizer.cs" />
+    <Compile Include="Helpers\AnimationHelper.cs" />
+    <Compile Include="Helpers\EmailChecker.cs" />
+    <Compile Include="Helpers\Randomizer.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="EnterWindow.xaml.cs">
       <DependentUpon>EnterWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ForUser\URequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Notification\Controls\StandardNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -251,15 +278,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Requests\Device.xaml">
+    <Page Include="Pages\UsersRequestsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Requests\Other.xaml">
+    <Page Include="SendRequests\Device.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Requests\Soft.xaml">
+    <Page Include="SendRequests\Other.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SendRequests\Soft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -346,9 +377,6 @@
     <Resource Include="Images\icons\poaUMH6l_131549143921903653.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="poaUMH6l_131549143921903653.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="poaUMH6l_131549143465173417.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -361,5 +389,9 @@
     <Resource Include="Images\types\word.png" />
     <Resource Include="Images\types\zip.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\black.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

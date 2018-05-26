@@ -1,8 +1,9 @@
 ﻿using TR.Data;
 using System.Windows.Controls;
 using System.Windows;
-using TR.Classes;
-using System;
+using System.Linq;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace TR.Pages
 {
@@ -11,13 +12,16 @@ namespace TR.Pages
     /// </summary>
     public partial class UsersPage : Page
     {
+
+        private ObservableCollection<Employee> result = new ObservableCollection<Employee>();
+
         public UsersPage()
         {
             InitializeComponent();
 
             this.DataContext = new EmployeeService();
+            EmployeeService.RefreshUsersStatusAsync();
 
-            filterBox.ItemsSource = Filter.FiltersList;
         }
 
         /// <summary>
@@ -68,23 +72,54 @@ namespace TR.Pages
         /// <param name="e"></param>
         private void DeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            new CustomMessageWindow("Вы действительно хотите удалить этого пользователя?").ShowDialog();
+
         }
         #endregion
 
         /// <summary>
-        /// При нажатии на кнопку "Поиск"
+        /// Поиск
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void searchButton_Click(object sender, RoutedEventArgs e)
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (filterBox.SelectedValue != null)
+            var searchText = (sender as TextBox).Text;
+
+            if (string.IsNullOrEmpty(searchText))
             {
-                MessageBox.Show(filterBox.SelectedValue.ToString());
+                dataGrid.ItemsSource = null;
+                dataGrid.ItemsSource = EmployeeService.UsersCollection;
+
+                return;
             }
-            else
-                new CustomMessageWindow("Укажите фильтр для поиска!").ShowDialog();
+
+            result.Clear();
+
+            foreach (var item in EmployeeService.UsersCollection.Where(x => x.FIO.ToUpper().Contains(searchText.ToUpper())))
+                result.Add(item);
+
+            dataGrid.ItemsSource = null;
+            dataGrid.ItemsSource = result;
+        }
+
+        /// <summary>
+        /// Переходит на страницу заявок пользователя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowUserRequests_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void RefreshUsersStatus_Click(object sender, RoutedEventArgs e)
+        {
+
+            await Task.Factory.StartNew(() => EmployeeService.RefreshUsersStatusAsync());
+
+            dataGrid.ItemsSource = null;
+
+            dataGrid.ItemsSource = EmployeeService.UsersCollection;
         }
     }
 }

@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="TR.ForUser.URequest"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TR.ForUser"
+             mc:Ignorable="d" 
+             FontSize="14"
+             Width="200" Height="200" Margin="0,10,10,0">
+    
+    <Border x:Name="border" BorderThickness="3" CornerRadius="10" Padding="10" Background="#FF97BED8">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="3" RenderingBias="Quality"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock Text="Идентификатор:" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock x:Name="idText" Grid.Column="1" HorizontalAlignment="Center" Text="28"/>
+            </Grid>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <TextBlock x:Name="textText" HorizontalAlignment="Center" Text="asdasdasasdasd"/>
+            </ScrollViewer>
+            <TextBlock x:Name="dateText" Grid.Row="2" HorizontalAlignment="Center" Text="2018-05-25 00:39:09"/>
+        </Grid>
+    </Border>
+</UserControl>

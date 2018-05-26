@@ -7,9 +7,13 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       FontSize="14"
+      Background="#FFFAFAFA"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddUserPage">
     <Page.Resources>
+
+
+        <!-- При загрузке страницы -->
         <Storyboard x:Key="OnLoaded1">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="grid">
                 <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
@@ -26,13 +30,114 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+
+
+        <!-- Показать добавление пользователей (Excel) -->
+        <Storyboard x:Key="ShowUsersTable">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="usersGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.026"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.638"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="usersGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.053"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.656"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="usersGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="usersGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <!-- Скрыть добавление пользователей (Excel) -->
+        <Storyboard x:Key="HideUsersTable">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="usersGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.766"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.422"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="usersGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.692"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.412"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="usersGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="usersGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+
+
+
+        <!-- Показать добавление пользователя -->
+        <Storyboard x:Key="ShowUserTable">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="addUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.026"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.638"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="addUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.053"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.656"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="addUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="addUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+
+        <!-- Скрыть добавление пользователя -->
+        <Storyboard x:Key="HideUserTable">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="addUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.766"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.422"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="addUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.692"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0.412"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="addUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="addUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Page.Resources>
     <Page.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard Storyboard="{StaticResource OnLoaded1}"/>
         </EventTrigger>
     </Page.Triggers>
-    <Grid x:Name="grid" RenderTransformOrigin="0.5,0.5">
+    <Grid x:Name="grid" RenderTransformOrigin="0.5,0.5" Margin="20,10,20,5">
         <Grid.RenderTransform>
             <TransformGroup>
                 <ScaleTransform/>
@@ -41,80 +146,191 @@
                 <TranslateTransform/>
             </TransformGroup>
         </Grid.RenderTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <!-- Левая часть -->
-        <Grid Grid.Column="0">
-            <Grid>
+
+        <!-- Head -->
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Background="#FF54B83E" BorderBrush="#FF54B83E" HorizontalAlignment="Left" Click="ShowExcelUsers_Click" Margin="0,0,20,0">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="FileExcel" VerticalAlignment="Center" Width="23" Height="23"/>
+                    <TextBlock Text="Загрузить Excel файл" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="1" Click="AddUserGrid_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="AccountPlus" VerticalAlignment="Center" Width="23" Height="23"/>
+                    <TextBlock Text="Добавить пользователя" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+
+
+        <!-- Excel add -->
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" Panel.ZIndex="1" x:Name="usersGrid"  Margin="0,10,0,0" Opacity="0.9" Background="#FFFAFAFA" Visibility="Collapsed" RenderTransformOrigin="0.5,0.5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+
+            <DataGrid x:Name="usersTable" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding usersList}" CanUserDeleteRows="False" SelectionMode="Single" 
+                      CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Visibility="Collapsed">
+                <DataGrid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </DataGrid.RenderTransform>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                    <DataGridTextColumn Header="Кабинет" Binding="{Binding Room}"/>
+                    <DataGridTextColumn Header="Почтовый ящик" Binding="{Binding Email}" />
+                    <DataGridTextColumn Header="Номер телефона" Binding="{Binding Phone}" />
+                    <DataGridTextColumn Header="Логин" Binding="{Binding Login}" />
+                    <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Grid Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,0,10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Margin="0,0,15,0" Background="#FFB64343" BorderBrush="#FFB64343" Click="CanselAddUsers_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Close" Width="23" Height="23" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBlock Text="Отмена" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Grid.Column="1" Margin="0,0,15,0" Background="#FF54B83E" BorderBrush="#FF54B83E" Click="AddUsersExcel_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="23" Height="23" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBlock Text="Добавить" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+            </Grid>
+        </Grid>
+
+
+        <!-- Add user -->
+        <Grid Grid.Row="1" Panel.ZIndex="1" Grid.ColumnSpan="2" Visibility="Collapsed" x:Name="addUserGrid"
+              RenderTransformOrigin="0.5,0.5">
+
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!-- Левая часть -->
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0" Margin="10" x:Name="profilePhoto" MaxHeight="300" MinHeight="300" MaxWidth="300" MinWidth="300"/>
+                    <Button Content="Загрузить изображение" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,10" Click="LoadImage_Click"/>
+                    <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Content="Администратор" Grid.Column="0" Grid.Row="0" Margin="10,5,0,5" VerticalAlignment="Center" GroupName="Role" x:Name="admin"/>
+                        <RadioButton Content="Технический отдел" Grid.Column="1" Grid.Row="0" Margin="10,5,0,5" VerticalAlignment="Center" GroupName="Role" x:Name="tech"/>
+
+                        <RadioButton Content="Пользователь" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Center" GroupName="Role" x:Name="user"/>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- Правая часть -->
+            <Grid Grid.Column="1" x:Name="rightGrid" Grid.Row="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Image Grid.Row="0" Margin="10" x:Name="profilePhoto"/>
-                <Button Content="Загрузить изображение" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,10" Click="LoadImage_Click"/>
-            </Grid>
-        </Grid>
-        
-        <!-- Правая часть -->
-        <Grid Grid.Column="1" x:Name="rightGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            
-            <!-- Фамилия -->
-            <TextBox Grid.Row="0" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Фамилия" Margin="0,10,0,0" x:Name="surnameText"/>
-            <!-- Имя -->
-            <TextBox Grid.Row="1" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Имя" Margin="0,10,0,0" x:Name="nameText"/>
-            <!-- Отчество -->
-            <TextBox Grid.Row="2" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Отчество" Margin="0,10,0,0" x:Name="midnameText"/>
-            <!-- Номер кабинета -->
-            <TextBox Grid.Row="3" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Номер кабинета" Margin="0,10,0,0" PreviewTextInput="OnlyNumbers_Input" x:Name="roomText"/>
-            <!-- Почта -->
-            <TextBox Grid.Row="4" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Почта" Margin="0,10,0,0" x:Name="emailText"/>
-            <!-- Номер телефона -->
-            <TextBox Grid.Row="5" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Номер телефона" Margin="0,10,0,0" PreviewTextInput="OnlyNumbers_Input" x:Name="phoneText"/>
-            <!-- Логин -->
-            <TextBox Grid.Row="6" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Логин" Margin="0,10,0,0" x:Name="loginText"/>
-            <!-- Пароль -->
-            <PasswordBox Grid.Row="7" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" materialDesign:HintAssist.Hint="Пароль" Margin="0,10,0,0" x:Name="passText"/>
-            <!-- Повторите пароль -->
-            <PasswordBox Grid.Row="8" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" materialDesign:HintAssist.Hint="Повторите пароль" Margin="0,10,0,0" x:Name="repeatPassText"/>
-            <!-- Добавить -->
-            <Grid Grid.Row="9">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" Margin="5,0,0,5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                <!-- Фамилия -->
+                <TextBox Grid.Row="0" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Фамилия" Margin="0,10,0,0" x:Name="surnameText"/>
+                <!-- Имя -->
+                <TextBox Grid.Row="1" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Имя" Margin="0,10,0,0" x:Name="nameText"/>
+                <!-- Отчество -->
+                <TextBox Grid.Row="2" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Отчество" Margin="0,10,0,0" x:Name="midnameText"/>
+                <!-- Номер кабинета -->
+                <TextBox Grid.Row="3" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Номер кабинета" Margin="0,10,0,0" PreviewTextInput="OnlyNumbers_Input" x:Name="roomText"/>
+                <!-- Почта -->
+                <TextBox Grid.Row="4" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Почта" Margin="0,10,0,0" x:Name="emailText"/>
+                <!-- Номер телефона -->
+                <TextBox Grid.Row="5" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Номер телефона" Margin="0,10,0,0" PreviewTextInput="OnlyNumbers_Input" x:Name="phoneText"/>
+                <!-- Логин -->
+                <TextBox Grid.Row="6" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Логин" Margin="0,10,0,0" x:Name="loginText"/>
+                <!-- Пароль -->
+                <PasswordBox Grid.Row="7" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" materialDesign:HintAssist.Hint="Пароль" Margin="0,10,0,0" x:Name="passText"/>
+                <!-- Повторите пароль -->
+                <PasswordBox Grid.Row="8" MaxWidth="400" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" materialDesign:HintAssist.Hint="Повторите пароль" Margin="0,10,0,0" x:Name="repeatPassText"/>
+                <!-- Добавить -->
+                <Grid Grid.Row="9" Margin="0,20,0,10" MaxWidth="400" HorizontalAlignment="Right">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <RadioButton Content="Администратор" Grid.Column="0" Grid.Row="0" Margin="10,5,0,5" VerticalAlignment="Center" GroupName="Role" x:Name="admin"/>
-                    <RadioButton Content="Тех отдел" Grid.Column="1" Grid.Row="0" Margin="10,5,0,5" VerticalAlignment="Center" GroupName="Role" x:Name="tech"/>
-
-                    <RadioButton Content="Пользователь" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Center" GroupName="Role" x:Name="user"/>
-
+                    <Button Content="Отмена" Grid.Column="0" Background="#FFC94166" BorderBrush="#FFC94166" Margin="0,0,10,0" Click="CanseAddUserGrid_Click"/>
+                    <Button Grid.Column="1" Content="Добавить" HorizontalAlignment="Center" x:Name="buttonText" Click="AddUser_Click" Margin="40,0,20,0"/>
                 </Grid>
-                <Button Grid.Column="1" Content="Добавить" HorizontalAlignment="Center" x:Name="buttonText" Click="Button_Click" Margin="40,0,20,0"/>
             </Grid>
-        </Grid>
+        </Grid >
     </Grid>
 </Page>

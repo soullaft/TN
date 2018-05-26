@@ -1,9 +1,14 @@
 ﻿using System.Net;
 
-namespace TR.Classes
+namespace TR
 {
+
     public class InternetState
     {
+        /// <summary>
+        /// Проверяет наличие интернет соединения
+        /// </summary>
+        /// <returns></returns>
         public static bool CheckForInternetConnection()
         {
             try

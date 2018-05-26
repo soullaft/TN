@@ -5,12 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:TR.Pages"
-      xmlns:classes="clr-namespace:TR.Classes"
       mc:Ignorable="d" 
       FontSize="16"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UsersPage"
-      Background="{Binding ElementName=dataGrid, Path=Background}">
+      Background="#FFFAFAFA">
 
     <Page.Resources>
         <Storyboard x:Key="OnLoaded1">
@@ -60,47 +59,105 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
+            
             <Menu Grid.Column="0">
-                <MenuItem VerticalAlignment="Center" Click="AddUser_Click">
-                <MenuItem.Header>
-                    <Grid>
+                <MenuItem VerticalAlignment="Center" Click="RefreshUsersStatus_Click">
+                    <MenuItem.Header>
+                        <Grid>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                        <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="25" 
+                            <materialDesign:PackIcon Kind="Refresh" Width="25" 
                                                  Height="25"  Margin=" 0 0 5 0 " Grid.Column="0"
-                                                 Foreground="{Binding ElementName=searchButton, Path=Background}"/>
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
+                                                 Foreground="#FF2196F3"/>
+                        </Grid>
+
+                    </MenuItem.Header>
+                    <MenuItem.ToolTip>
+                        <ToolTip Opacity="0.75">
+                            <TextBlock Text="Обновить"/>
+                        </ToolTip>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <MenuItem VerticalAlignment="Center" Click="AddUser_Click">
+                    <MenuItem.Header>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <materialDesign:PackIcon Kind="AccountMultiplePlus" Width="25" 
+                                                 Height="25"  Margin=" 0 0 5 0 " Grid.Column="0"
+                                                 Foreground="#FF2196F3"/>
+                        </Grid>
+
+                    </MenuItem.Header>
+                    <MenuItem.ToolTip>
+                        <ToolTip Opacity="0.75">
+                            <TextBlock Text="Добавить пользователя"/>
+                        </ToolTip>
+                    </MenuItem.ToolTip>
+                </MenuItem>
             </Menu>
-            <Label Content="Искать по:" Grid.Column="1" Margin="0 0 10 0" VerticalAlignment="Center"/>
-            <ComboBox Grid.Column="2" MinWidth="50" x:Name="filterBox" Margin="10,0" VerticalAlignment="Center">
-            </ComboBox>
-            <TextBox Grid.Column="3" Width="140" Margin="10,4.38,0,0" VerticalAlignment="Center"
-                     MaxLength="15" x:Name="searchBox"/>
-            <Button Content="Найти" Grid.Column="4" Margin="20,0,20,0" VerticalAlignment="Center"
-                    x:Name="searchButton" Click="searchButton_Click"/>
+            <Label Content="Поиск:" Grid.Column="1" Margin="0 0 10 0" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="3" Width="180" Margin="10,0,10,0" VerticalAlignment="Center"
+                     MaxLength="25" x:Name="searchBox" TextChanged="SearchBox_TextChanged">
+                <TextBox.ToolTip>
+                    <ToolTip Opacity="0.75">
+                        <TextBlock Text="Введите фамилию"/>
+                    </ToolTip>
+                </TextBox.ToolTip>
+            </TextBox>
         </Grid>
         <DataGrid x:Name="dataGrid" CanUserDeleteRows="False" SelectionMode="Single" 
                       CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True"
-                      Grid.Row="1" Margin="0 0 0 10"
+                      Grid.Row="1" Margin="0,0,0,10"
                       VerticalScrollBarVisibility="Visible" ItemsSource="{Binding UsersCollection}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
                 <DataGridTextColumn Header="Кабинет" Binding="{Binding Room}"/>
                 <DataGridTextColumn Header="Почтовый ящик" Binding="{Binding Email}" />
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}" />
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
             </DataGrid.Columns>
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Отправить сообщение" Cursor="Hand" Click="SendEmail_Click"/>
-                    <MenuItem Header="Редактировать пользователя" Cursor="Hand" Click="EditUser_Click"/>
-                    <MenuItem Header="Удалить пользователя" Cursor="Hand" Click="DeleteUser_Click"/>
+                    <MenuItem Cursor="Hand" Click="ShowUserRequests_Click">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="NoteText" Width="19" Height="22" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="#FF5D45CD"/>
+                                <TextBlock Text="Заявки" VerticalAlignment="Center" Foreground="#FF5D45CD"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Cursor="Hand" Click="SendEmail_Click">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Send" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="#FF2D9B69"/>
+                                <TextBlock Text="Отправить сообщение" VerticalAlignment="Center" Foreground="#FF2D9B69"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Cursor="Hand" Click="EditUser_Click">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountEdit" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="#FFB4AA48"/>
+                                <TextBlock Text="Редактировать пользователя" VerticalAlignment="Center" Foreground="#FFB4AA48"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Cursor="Hand" Click="DeleteUser_Click">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountRemove" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="#FFB04B62"/>
+                                <TextBlock Text="Удалить пользователя" VerticalAlignment="Center" Foreground="#FFB04B62"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
 

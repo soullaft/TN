@@ -1,7 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Windows;
-using TR.Classes;
-using TR.Data;
+﻿using System.Windows;
+using TR.Notification;
 
 namespace TR
 {
@@ -17,7 +15,7 @@ namespace TR
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            new ContexTrayMenu();
         }
     }
 }

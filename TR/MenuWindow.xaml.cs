@@ -1,9 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Effects;
-using TR.Classes;
+using TR.Data;
 using TR.Notification;
 using TR.Pages;
+using TR.Request;
 
 namespace TR
 {
@@ -18,12 +21,16 @@ namespace TR
         /// </summary>
         private MenuItem _prevItem;
 
+        /// <summary>
+        /// Предыдущая страница
+        /// </summary>
         private int prevpage;
 
         /// <summary>
         /// Сервис уведомлений
         /// </summary>
-        private NotificationService notivicationService = new NotificationService();
+        private NotificationService notivicationService;
+
         #endregion
 
         #region Конструктор
@@ -51,6 +58,25 @@ namespace TR
             _prevItem = horrizontalMenu.Items[prevpage] as MenuItem;
 
             PageHunter.ChangePage(_prevItem);
+
+            ContexTrayMenu.Show(CurrentUser.Role);
+
+            new RequestsService();
+
+            var role = EmployeeService.UsersCollection.Where(user => user.ID == CurrentUser.ID).First().Type;
+
+            //Если вошел администратор, то получаем все уведомления с таргетом 0
+            if (role == Roles.Admin)
+                notivicationService = new NotificationService(0);
+            //Если вошел администратор, то получаем все уведомления с таргетом идентификатор пользователя
+            else if (role == Roles.User)
+            {
+                notivicationService = new NotificationService(Convert.ToInt32(CurrentUser.ID));
+                ForUser.RequestsService.GetRequests(CurrentUser.ID);
+            }
+            else
+                //Если вошел администратор, то получаем все уведомления с таргетом 1
+                notivicationService = new NotificationService(1);
         }
 
         #endregion
@@ -88,6 +114,9 @@ namespace TR
         /// <param name="e"></param>
         private void UsersPage_Click(object sender, RoutedEventArgs e)
         {
+            if (mainFrame.Content.ToString() == "TR.Pages.UsersPage")
+                return;
+
             PageHunter.ChangePage(sender as MenuItem);
             mainFrame.Content = new UsersPage();
         }
@@ -98,6 +127,8 @@ namespace TR
         /// <param name="e"></param>
         private void RequestsPage_Click(object sender, RoutedEventArgs e)
         {
+            if (mainFrame.Content.ToString() == "TR.Pages.RequestsPage")
+                return;
             PageHunter.ChangePage(sender as MenuItem);
             mainFrame.Content = new RequestsPage();
         }
@@ -108,6 +139,8 @@ namespace TR
         /// <param name="e"></param>
         private void HistoryPage_Click(object sender, RoutedEventArgs e)
         {
+            if (mainFrame.Content.ToString() == "TR.Pages.HistoryPage")
+                return;
             PageHunter.ChangePage(sender as MenuItem);
             mainFrame.Content = new HistoryPage();
         }
@@ -116,12 +149,29 @@ namespace TR
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void sendrequest_Click(object sender, RoutedEventArgs e)
+        private void SendRequest_Click(object sender, RoutedEventArgs e)
         {
+            if (mainFrame.Content.ToString() == "TR.Pages.SendRequestPage")
+                return;
             PageHunter.ChangePage(sender as MenuItem);
             mainFrame.Content = new SendRequestPage();
         }
+
+        /// <summary>
+        /// Перейти к заявкам пользователя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UsersRequests_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainFrame.Content.ToString() == "TR.Pages.UsersRequestsPage")
+                return;
+
+            PageHunter.ChangePage(sender as MenuItem);
+            mainFrame.Content = ForUser.RequestsService.UserRequests;
+        }
         #endregion
+
 
     }
 }

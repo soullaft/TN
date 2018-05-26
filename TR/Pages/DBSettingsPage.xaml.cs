@@ -42,8 +42,7 @@ namespace TR.Pages
             }
             catch(TypeInitializationException ex)
             {
-                new CustomMessageWindow("Данные для подключения введены неверно!").ShowDialog();
-
+                ex.ToString();
                 Settings.Default.server = Settings.Default.server1;
                 Settings.Default.database = Settings.Default.database1;
                 Settings.Default.user = Settings.Default.user1;
