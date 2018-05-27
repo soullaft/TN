@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ConnectionString>
+
+  <default name="default">
+    <server>soullaqd.beget.tech</server>
+    <database>soullaqd_tn</database>
+    <user>soullaqd_tn</user>
+    <password>fxbadawh12</password>
+  </default>
+
+</ConnectionString>

@@ -25,7 +25,7 @@ namespace TR.Request
         /// <summary>
         /// Время
         /// </summary>
-        public DateTime DateTime { get; set; }
+        public string DateTime { get; set; }
 
         /// <summary>
         /// ФИО сотрудника

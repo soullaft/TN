@@ -198,8 +198,8 @@
                NavigationUIVisibility="Hidden"/>
         </Grid>
     <!--Уведомления-->
-        <Border BorderThickness="3" CornerRadius="15" Padding="2" Grid.Row="1" Opacity="0.8" Width="300" HorizontalAlignment="Right" 
-               Margin="0,0,-300,0" Panel.ZIndex="1" Visibility="Collapsed" x:Name="notificationPanel" Background="#FFE8E8E8">
+        <Border BorderThickness="3" CornerRadius="15" Padding="2" Grid.Row="1" Opacity="0.9" Width="300" HorizontalAlignment="Right" 
+               Margin="0,0,-300,0" Panel.ZIndex="1" Visibility="Collapsed" x:Name="notificationPanel" Background="White" BorderBrush="#FFC3C3C3">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

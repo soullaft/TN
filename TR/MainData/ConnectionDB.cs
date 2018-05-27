@@ -1,4 +1,5 @@
-﻿using TR.Properties;
+﻿using System.Xml;
+using TR.Properties;
 
 namespace TR.MainData
 {
@@ -17,11 +18,29 @@ namespace TR.MainData
 
         static ConnectionDB()
         {
-            Server = Settings.Default.server;
-            DataBase = Settings.Default.database;
-            User = Settings.Default.user;
-            Password = Settings.Default.password;
-            Charset = Settings.Default.charset;
+            XmlDocument xDoc = new XmlDocument();
+
+            xDoc.Load("../../Connection.xml");
+
+            XmlElement xRoot = xDoc.DocumentElement;
+
+            foreach (XmlNode xnode in xRoot)
+            {
+
+                foreach (XmlNode childnode in xnode.ChildNodes)
+                {
+                    if (childnode.Name == "server")
+                        Server = childnode.InnerText;
+                    if (childnode.Name == "database")
+                        DataBase = childnode.InnerText;
+
+                    if (childnode.Name == "user")
+                        User = childnode.InnerText;
+
+                    if (childnode.Name == "password")
+                        Password = childnode.InnerText;
+                }
+            }
         }
 
         static string Connect()

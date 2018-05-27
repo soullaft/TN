@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TR.Notification.Controls"
              mc:Ignorable="d"
              FontSize="12"
-             Margin="5 10 5 0"
+             Margin="5,20,5,0"
              Height="100"
              Width="260" RenderTransformOrigin="0.5,0.5">
     <UserControl.Resources>
@@ -31,6 +31,9 @@
             </ThicknessAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
+    <UserControl.Effect>
+        <DropShadowEffect BlurRadius="10" ShadowDepth="3"/>
+    </UserControl.Effect>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard x:Name="ShowNotification_BeginStoryboard" Storyboard="{StaticResource ShowNotification}"/>
@@ -45,11 +48,7 @@
         </TransformGroup>
     </UserControl.RenderTransform>
 
-    <Border x:Name="border" BorderThickness="3" CornerRadius="10" Padding="2" Background="#FFFBFBFB">
-        <Border.Effect>
-            <DropShadowEffect/>
-        </Border.Effect>
-
+    <Border x:Name="border" BorderThickness="2" CornerRadius="10" Padding="2" Background="White" BorderBrush="#FFC3C3C3">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

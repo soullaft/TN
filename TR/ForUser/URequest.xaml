@@ -5,9 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TR.ForUser"
              mc:Ignorable="d" 
-             FontSize="14"
-             Width="200" Height="200" Margin="0,10,10,0">
-    
+             FontSize="16"
+             Width="200" Height="200" Margin="0,20,20,0">
+    <UserControl.Effect>
+        <DropShadowEffect BlurRadius="5" ShadowDepth="1"/>
+    </UserControl.Effect>
+
     <Border x:Name="border" BorderThickness="3" CornerRadius="10" Padding="10" Background="#FF97BED8">
         <Border.Effect>
             <DropShadowEffect BlurRadius="10" ShadowDepth="3" RenderingBias="Quality"/>
@@ -30,9 +33,11 @@
                 <TextBlock Text="Идентификатор:" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBlock x:Name="idText" Grid.Column="1" HorizontalAlignment="Center" Text="28"/>
             </Grid>
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <TextBlock x:Name="textText" HorizontalAlignment="Center" Text="asdasdasasdasd"/>
-            </ScrollViewer>
+            <Grid Grid.Row="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="textText" HorizontalAlignment="Center" TextWrapping="Wrap" Text="asdasdasasdasd"/>
+                </ScrollViewer>
+            </Grid>
             <TextBlock x:Name="dateText" Grid.Row="2" HorizontalAlignment="Center" Text="2018-05-25 00:39:09"/>
         </Grid>
     </Border>

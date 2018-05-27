@@ -75,6 +75,9 @@ namespace TR.Pages
 
                 ContexTrayMenu.ShowMessage("Уведомление!", "Сообщение было успешно отправлено!", System.Windows.Forms.ToolTipIcon.Info);
 
+                attachmentsPanel.Children.Clear();
+                EmailSender.attachmentsView.Clear();
+
                 (Application.Current.MainWindow as MenuWindow).mainFrame.Content = new UsersPage();
             }
             else

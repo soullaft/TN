@@ -127,7 +127,7 @@ namespace TR.Email
         /// <summary>
         /// Очищает список файлов для рассылки
         /// </summary>
-        private  void ClearAttachments()
+        private void ClearAttachments()
         {
             attachmentsView.Clear();
         }

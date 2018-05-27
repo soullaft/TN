@@ -33,7 +33,7 @@ namespace TR.Pages
             foreach (var item in ForUser.RequestsService.RequestsList)
                 requestsPanel.Children.Add(item);
         }
-        private async void MenuItem_Click(object sender, RoutedEventArgs e)
+        public async void Refresh(object sender, RoutedEventArgs e)
         {
             requestsPanel.Children.Clear();
             ForUser.RequestsService.RequestsList.Clear();

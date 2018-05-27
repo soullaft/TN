@@ -45,10 +45,13 @@ namespace TR.Request
         /// <summary>
         /// Получаем все заявки
         /// </summary>
-        private static void GetRequests()
+        public static void GetRequests()
         {
             Task.Factory.StartNew(() =>
             {
+
+                WaitRequestsCollection.Clear();
+
                 var query = "SELECT * FROM `Requests`";
 
                 using (var connection = new MySqlConnection(ConnectionDB.Connection))
@@ -71,7 +74,7 @@ namespace TR.Request
                                 ID = reader.GetInt64("ID"),
                                 EmployeeID = reader.GetInt64("IDEmpl"),
                                 Text = reader.GetString("Text"),
-                                DateTime = reader.GetDateTime("Date"),
+                                DateTime = reader.GetDateTime("Date").ToString(),
                                 State = state,
                                 FIOUser = EmployeeService.UsersCollection.Where(x => x.ID == reader.GetInt64("IDEmpl")).First().FIO
                             };
@@ -87,6 +90,42 @@ namespace TR.Request
 
 
             });
+        }
+
+        public static void RefreshWaitingRequests()
+        {
+            WaitRequestsCollection.Clear();
+
+            var query = "SELECT * FROM `Requests` WHERE State = 0";
+
+            using (var connection = new MySqlConnection(ConnectionDB.Connection))
+            {
+                var cmd = new MySqlCommand(query, connection);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (!reader.HasRows)
+                        return;
+
+                    while (reader.Read())
+                    {
+                        var state = (State)reader.GetInt64("State");
+
+                        Request request = new Request()
+                        {
+                            ID = reader.GetInt64("ID"),
+                            EmployeeID = reader.GetInt64("IDEmpl"),
+                            Text = reader.GetString("Text"),
+                            DateTime = reader.GetDateTime("Date").ToString(),
+                            State = state,
+                            FIOUser = EmployeeService.UsersCollection.Where(x => x.ID == reader.GetInt64("IDEmpl")).First().FIO
+                        };
+                            Dispatcher.CurrentDispatcher.Invoke(() => WaitRequestsCollection.Add(request));
+                    }
+                }
+            }
         }
 
         /// <summary>

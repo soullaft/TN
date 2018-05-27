@@ -114,6 +114,10 @@ namespace TR.Notification
                                     (Application.Current.MainWindow as MenuWindow).kek.Children.Add(new StandardNotification(notification));
                                     AnimationHelper.StartAnimation((Application.Current.MainWindow as MenuWindow), "Ding", delegate { });
                                     //ContexTrayMenu.Show("Новая заявка", $"{reader.GetString("FIO")} отправил заявку", System.Windows.Forms.ToolTipIcon.Info);
+                                    if (CurrentUser.Role == Roles.Admin)
+                                        Request.RequestsService.RefreshWaitingRequests();
+                                    else if (CurrentUser.Role == Roles.User)
+                                        ForUser.RequestsService.UserRequests.Refresh(this, new RoutedEventArgs());
                                 });
                                 break;
                             }
