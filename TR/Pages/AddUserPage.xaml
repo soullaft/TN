@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       FontSize="14"
-      Background="#FFFAFAFA"
+      Background="#FFE4E4E4"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddUserPage">
     <Page.Resources>
@@ -167,7 +167,7 @@
                     <TextBlock Text="Загрузить Excel файл" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Grid.Column="1" Click="AddUserGrid_Click">
+            <Button Grid.Column="1" Click="AddUserGrid_Click" Background="#FF54B6EE">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="AccountPlus" VerticalAlignment="Center" Width="23" Height="23"/>
                     <TextBlock Text="Добавить пользователя" VerticalAlignment="Center"/>
@@ -175,8 +175,29 @@
             </Button>
         </Grid>
 
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,20,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+                       Text="Прочтите это перед тем как добавлять пользователей!" 
+                       Grid.Row="0" FontSize="24"/>
 
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,20,0,20"
+                       Text="Если вы собираетесь добавлять пользователь через Excel файл, то удостовертесь, что Excel файл имеет следующую структуру:" Grid.Row="1" FontSize="18"/>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Примерная структура Excel файла:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+                <Image Grid.Row="1" Source="/Images/Screenshot_47.png"/>
+            </Grid>
+        </Grid>
+        
         <!-- Excel add -->
         <Grid Grid.Row="1" Grid.ColumnSpan="2" Panel.ZIndex="1" x:Name="usersGrid"  Margin="0,10,0,0" Opacity="0.9" Background="#FFFAFAFA" Visibility="Collapsed" RenderTransformOrigin="0.5,0.5">
 
@@ -196,7 +217,7 @@
                 </TransformGroup>
             </Grid.RenderTransform>
 
-            <DataGrid x:Name="usersTable" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding usersList}" CanUserDeleteRows="False" SelectionMode="Single" 
+            <DataGrid x:Name="usersTable" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding UsersList}" CanUserDeleteRows="False" SelectionMode="Single" 
                       CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Visibility="Collapsed">
                 <DataGrid.RenderTransform>
                     <TransformGroup>
@@ -243,8 +264,8 @@
 
 
         <!-- Add user -->
-        <Grid Grid.Row="1" Panel.ZIndex="1" Grid.ColumnSpan="2" Visibility="Collapsed" x:Name="addUserGrid"
-              RenderTransformOrigin="0.5,0.5">
+        <Grid Grid.Row="1" Panel.ZIndex="1" Grid.ColumnSpan="2" Visibility="Collapsed" x:Name="addUserGrid" Background="#FFFAFAFA"
+              RenderTransformOrigin="0.5,0.5" Opacity="0.9" Margin="0,10,0,0">
 
             <Grid.RenderTransform>
                 <TransformGroup>

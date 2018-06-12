@@ -1,6 +1,5 @@
 ﻿using ExcelDataReader;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
@@ -20,12 +19,12 @@ namespace TR.ExcelHelper
         /// <summary>
         /// Коллекция пользователей
         /// </summary>
-        public ObservableCollection<Employee> usersList { get; set; }
+        public static ObservableCollection<Employee> UsersList { get; set; }
 
 
         public ExcelReader()
         {
-            usersList = new ObservableCollection<Employee>();
+            UsersList = new ObservableCollection<Employee>();
         }
 
         /// <summary>
@@ -38,15 +37,19 @@ namespace TR.ExcelHelper
                 //Если пользователь нажал "Ок"
                 if(openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    using (var stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
+                    try
                     {
-                        using (var reader = ExcelReaderFactory.CreateReader(stream))
+                        using (var stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
                         {
-                            result = reader.AsDataSet();
+                            using (var reader = ExcelReaderFactory.CreateReader(stream))
+                            {
+                                result = reader.AsDataSet();
+                            }
                         }
+                        ReadFile(result);
+                        return true;
                     }
-                    ReadFile(result);
-                    return true;
+                    catch(Exception ex) { MessageBox.Show(ex.Message); }
                 }
                 return false;
             }
@@ -58,7 +61,7 @@ namespace TR.ExcelHelper
         private void ReadFile(DataSet data)
         {
             //Очищаем коллекцию пользователей
-            usersList.Clear();
+            UsersList.Clear();
 
             //Для каждой итерации по строке создаем Employee и добавляем его в коллекцию пользователей
             for (int i = 1; i < data.Tables[0].Rows.Count; i++)
@@ -74,7 +77,7 @@ namespace TR.ExcelHelper
                     Image = null,
                     Type = Roles.User
                 };
-                usersList.Add(employee);
+                UsersList.Add(employee);
             }
         }
     }

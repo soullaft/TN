@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TR.Email.ViewModel"
-             Width="120" Height="120"
+             Width="100" Height="100"
              mc:Ignorable="d" Margin="0,10,10,0">
     <UserControl.Resources>
         <Storyboard x:Key="OnMouseLeftButtonDown1">
@@ -20,19 +20,22 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
+    <UserControl.Effect>
+        <DropShadowEffect ShadowDepth="2" BlurRadius="10"/>
+    </UserControl.Effect>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="closeButton">
         </EventTrigger>
     </UserControl.Triggers>
-    <Border BorderThickness="3" CornerRadius="10" Padding="2" Background="#FFE2E2E2">
+    <Border BorderThickness="3" CornerRadius="10" Padding="2" Background="White" BorderBrush="#FFDADADA">
         <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition MaxHeight="60"/>
+            <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
             <Image Grid.Row="0" x:Name="fileImage" Source="/TR;component/Images/types/image.png" MaxHeight="60"/>
-        <TextBlock Text="X" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,5,0" Cursor="Hand" x:Name="closeButton" MouseLeftButtonDown="closeButton_MouseLeftButtonDown"/>
-        <TextBlock Grid.Row="1" x:Name="fileText" Text="SomeText" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+        <TextBlock Text="X" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,5,0" Cursor="Hand" x:Name="closeButton" MouseLeftButtonDown="CloseButton_MouseLeftButtonDown"/>
+        <TextBlock Grid.Row="1" x:Name="fileText" Text="SomeText" HorizontalAlignment="Left" />
     </Grid>
     </Border>
 </UserControl>

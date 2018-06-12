@@ -117,13 +117,22 @@ namespace TR.Pages
                     Phone = phoneText.Text.Trim(),
                     Type = role,
                     Login = loginText.Text.Trim(),
-                    Image = new BitmapImage(new Uri(Path)),
-                    Password = HashCode.GenerateHash(repeatPassText.Password.Trim())
+                    Image = new BitmapImage(new Uri(Path)) ?? null,
+                    Password = HashCode.GenerateHash(repeatPassText.Password.Trim()),
+                    Status = "Не в сети"
                 };
 
                 EmployeeService.AddUserAsync(employee, Path.Substring(Path.LastIndexOf(".") + 1), profilePhoto.Source);
 
                 CanseAddUserGrid_Click(this, new RoutedEventArgs());
+
+
+                //Обнуляем введенные данные
+                surnameText.Text = nameText.Text = midnameText.Text = roomText.Text = emailText.Text = phoneText.Text = loginText.Text = passText.Password = repeatPassText.Password = null;
+                profilePhoto.Source = null;
+                admin.IsChecked = false;
+                user.IsChecked = false;
+                tech.IsChecked = false;
             }
         }
 
@@ -150,7 +159,10 @@ namespace TR.Pages
         /// <param name="e"></param>
         private void AddUsersExcel_Click(object sender, RoutedEventArgs e)
         {
-
+            foreach (var item in ExcelReader.UsersList)
+            {
+                EmployeeService.AddUserAsync(item);
+            }
         }
 
         /// <summary>
@@ -160,10 +172,11 @@ namespace TR.Pages
         /// <param name="e"></param>
         private void CanselAddUsers_Click(object sender, RoutedEventArgs e)
         {
-            excelReader.usersList.Clear();
-
             AnimationHelper.StartAnimation(this, "HideUsersTable", delegate 
             {
+
+                ExcelReader.UsersList.Clear();
+
                 usersTable.Visibility = Visibility.Collapsed;
                 usersGrid.Visibility = Visibility.Collapsed;
             });

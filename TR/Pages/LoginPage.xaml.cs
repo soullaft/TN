@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TR.Data;
 using TR.Notification;
 using TR.Pages;
+using TR.Properties;
 
 namespace TR
 {
@@ -14,10 +14,25 @@ namespace TR
     /// </summary>
     public partial class LoginPage : Page
     {
+
+
+
+        #region Constructor
+
+        /// <summary>
+        /// Конструктор по-умолчанию
+        /// </summary>
         public LoginPage()
         {
             InitializeComponent();
+
+            login.Text = Settings.Default.userLogin;
+            password.Password = Settings.Default.userPassword;
         }
+        #endregion
+
+
+
 
         /// <summary>
         /// Восстановить пароль 
@@ -29,6 +44,9 @@ namespace TR
             MainWindow window = Application.Current.MainWindow as MainWindow;
             window.mainFrame.Content = new RecoverPasswordPage();
         }
+
+
+
 
         /// <summary>
         /// При нажатии на кнопку "Войти"
@@ -44,6 +62,7 @@ namespace TR
 
                 if (currentUser != null)
                 {
+                    IsRemember();
                     //Если введенный пользователь - администратор
                     if (currentUser.Type == Roles.Admin)
                     {
@@ -59,17 +78,10 @@ namespace TR
 
                         window.Show();
 
-                        Task.Run(() =>
-                        {
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
+                        (Application.Current.MainWindow as MenuWindow).mainFrame.Content = new UsersPage();
 
-                                (Application.Current.MainWindow as MenuWindow).mainFrame.Content = new UsersPage();
+                        UIHelper.UnBlockTabs();
 
-
-                                UIHelper.UnBlockTabs();
-                            });
-                        });
                     }
                     //Если введенный пользователь - обычный работник
                     else if (currentUser.Type == Roles.User)
@@ -96,19 +108,9 @@ namespace TR
 
                         window.Show();
 
-                        Task.Run(() =>
-                        {
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                (Application.Current.MainWindow as MenuWindow).mainFrame.Content = new SendRequestPage();
+                        (Application.Current.MainWindow as MenuWindow).mainFrame.Content = new SendRequestPage();
 
-                                UIHelper.UnBlockTabs();
-                            });
-                        });
-                    }
-                    //Если введенный пользователь - работник технического отдела
-                    else
-                    {
+                        UIHelper.UnBlockTabs();
 
                     }
                 }
@@ -119,6 +121,10 @@ namespace TR
             else
                 ContexTrayMenu.ShowMessage("Ошибка!", "Поля должны быть заполнены!", System.Windows.Forms.ToolTipIcon.Error);
         }
+
+
+
+
         /// <summary>
         /// При нажатии на кнопку 'Enter' и фокусе на логин поле
         /// </summary>
@@ -134,6 +140,9 @@ namespace TR
             if (textBox.Text.Trim() == "root")
                 (Application.Current.MainWindow as MainWindow).mainFrame.Content = new DBSettingsPage();
         }
+
+
+
         /// <summary>
         /// При загрузкe страницы
         /// </summary>
@@ -149,6 +158,8 @@ namespace TR
         }
         
 
+
+
         /// <summary>
         /// При нажатии на "Enter" имея фокус на Passwordbox
         /// </summary>
@@ -159,5 +170,33 @@ namespace TR
             if (e.Key == Key.Enter)
                 EnterButton_Click(this, new RoutedEventArgs());
         }
+
+
+
+        #region Helpers
+
+
+        /// <summary>
+        /// Запомнить пользователя?
+        /// </summary>
+        private void IsRemember()
+        {
+            var result = rememberUserCheckBox.IsChecked;
+
+            if(result == true)
+            {
+                Settings.Default.userLogin = login.Text.Trim();
+                Settings.Default.userPassword = password.Password.Trim();
+                Settings.Default.Save();
+            }
+            else
+            {
+                Settings.Default.userLogin = string.Empty;
+                Settings.Default.userPassword = string.Empty;
+                Settings.Default.Save();
+            }
+        }
+
+        #endregion
     }
 }

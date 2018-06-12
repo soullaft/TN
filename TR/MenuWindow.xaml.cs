@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Effects;
@@ -67,16 +68,25 @@ namespace TR
 
             //Если вошел администратор, то получаем все уведомления с таргетом 0
             if (role == Roles.Admin)
+            {
+                this.Title = "Администатор";
                 notivicationService = new NotificationService(0);
+                Task.Factory.StartNew(() => NotificationService.ClearNotifications(0));
+            }
             //Если вошел администратор, то получаем все уведомления с таргетом идентификатор пользователя
             else if (role == Roles.User)
             {
+                this.Title = "Пользователь";
                 notivicationService = new NotificationService(Convert.ToInt32(CurrentUser.ID));
                 ForUser.RequestsService.GetRequests(CurrentUser.ID);
+                Task.Factory.StartNew(() => NotificationService.ClearNotifications(Convert.ToInt32(CurrentUser.ID)));
             }
             else
-                //Если вошел администратор, то получаем все уведомления с таргетом 1
+            //Если вошел администратор, то получаем все уведомления с таргетом 1
+            {
+                this.Title = "Технический отдел";
                 notivicationService = new NotificationService(1);
+            }
         }
 
         #endregion

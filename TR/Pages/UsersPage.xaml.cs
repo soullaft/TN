@@ -20,7 +20,6 @@ namespace TR.Pages
             InitializeComponent();
 
             this.DataContext = new EmployeeService();
-            EmployeeService.RefreshUsersStatusAsync();
 
         }
 
@@ -72,7 +71,13 @@ namespace TR.Pages
         /// <param name="e"></param>
         private void DeleteUser_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dataGrid.SelectedItem != null)
+            {
+                if (MessageBox.Show("Вы действительно хотите удалить этого пользователя?", "Внимание!") == MessageBoxResult.OK)
+                {
+                    EmployeeService.DeleteUser((dataGrid.SelectedItem as Employee).ID);
+                }
+            }
         }
         #endregion
 

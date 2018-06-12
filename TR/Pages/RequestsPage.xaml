@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TR.Pages"
       mc:Ignorable="d" 
-      FontSize="14"
+      FontSize="16"
       Background="#FFFAFAFA"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RequestsPage">
@@ -53,20 +53,23 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <RadioButton Content="Принятые" GroupName="Requests" Grid.Column="0" 
                          HorizontalAlignment="Center"
-                         Checked="AcceptedRequests_Checked"/>
-            <RadioButton Content="Завершенные" GroupName="Requests" Grid.Column="1" 
-                         HorizontalAlignment="Center"/>
-            <RadioButton Content="В ожидании" GroupName="Requests" Grid.Column="2" 
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center" 
+                         Checked="AcceptedRequests_Checked" Background="#FF46D803" Foreground="#FF46D803"/>
+            <RadioButton Content="В ожидании" GroupName="Requests" Grid.Column="1" 
                          HorizontalAlignment="Center" 
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
                          IsChecked="True" Checked="WaitingRequests_Checked"/>
-            <RadioButton Content="Отмененные" GroupName="Requests" Grid.Column="3" 
+            <RadioButton Content="Отмененные" GroupName="Requests" Grid.Column="2" 
                          HorizontalAlignment="Center"
-                         Checked="CanseledRequests_Checked"/>
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         Checked="CanseledRequests_Checked" Background="#FFF52A2A" Foreground="#FFF52A2A"/>
             
         </Grid>
         <DataGrid Grid.Row="1" x:Name="datagrid"

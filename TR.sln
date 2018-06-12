@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TR", "TR\TR.csproj", "{9EEFA418-6179-4EEF-96F2-18461BA3DAF1}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TRSetup", "TRSetup\TRSetup.vdproj", "{1427B31E-382D-4AB6-8D94-3980A66A230D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,12 @@ Global
 		{9EEFA418-6179-4EEF-96F2-18461BA3DAF1}.Release|x64.Build.0 = Release|x64
 		{9EEFA418-6179-4EEF-96F2-18461BA3DAF1}.Release|x86.ActiveCfg = Release|x86
 		{9EEFA418-6179-4EEF-96F2-18461BA3DAF1}.Release|x86.Build.0 = Release|x86
+		{1427B31E-382D-4AB6-8D94-3980A66A230D}.Debug|Any CPU.ActiveCfg = Debug
+		{1427B31E-382D-4AB6-8D94-3980A66A230D}.Debug|x64.ActiveCfg = Debug
+		{1427B31E-382D-4AB6-8D94-3980A66A230D}.Debug|x86.ActiveCfg = Debug
+		{1427B31E-382D-4AB6-8D94-3980A66A230D}.Release|Any CPU.ActiveCfg = Release
+		{1427B31E-382D-4AB6-8D94-3980A66A230D}.Release|x64.ActiveCfg = Release
+		{1427B31E-382D-4AB6-8D94-3980A66A230D}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

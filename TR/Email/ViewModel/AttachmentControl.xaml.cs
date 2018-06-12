@@ -24,7 +24,7 @@ namespace TR.Email.ViewModel
             fileText.Text = System.IO.Path.GetFileName(path);
         }
 
-        private void closeButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void CloseButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             AnimationHelper.StartAnimation(this, "OnMouseLeftButtonDown1", (x, y) =>
             {
@@ -41,6 +41,23 @@ namespace TR.Email.ViewModel
                 fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/image.png"));
             else if(type == "TXT" || type == "LOG")
                 fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/txt.png"));
+            else if (type == "PDF")
+                fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/pdf.png"));
+
+            else if (type == "DOC" || type == "PPT" || type == "DOCX")
+                fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/word.png"));
+
+            else if (type == "ZIP")
+                fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/zip.png"));
+
+            else if (type == "RAR")
+                fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/rar.png"));
+
+            else if (type == "XLSX" || type == "XLSM" || type == "XLS")
+                fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/excel.png"));
+
+            else
+                fileImage.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/types/question.png"));
 
         }
 

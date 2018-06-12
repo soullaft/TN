@@ -20,7 +20,7 @@ namespace TR.Notification
         /// <summary>
         /// Строка подключения к базе данных
         /// </summary>
-        private static string connectionString;
+        private static readonly string connectionString;
 
         /// <summary>
         /// Таймер
@@ -58,9 +58,10 @@ namespace TR.Notification
         /// <param name="target">Список заявок, которые будут вывены. 0 - если администатор ID cотрудника, если стоит получать уведомления только для cотрудника</param>
         public NotificationService(int target)
         {
-            timer = new DispatcherTimer();
-
-            timer.Interval = TimeSpan.FromSeconds(10);
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(10)
+            };
 
             timer.Tick += delegate
             {
@@ -140,6 +141,18 @@ namespace TR.Notification
             {
                 connection.Open();
                 new MySqlCommand(notificatationQuery, connection).ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public static void ClearNotifications(int target)
+        {
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                new MySqlCommand($"DELETE FROM Notifications WHERE Target = {target}", connection).ExecuteNonQuery();
+
                 connection.Close();
             }
         }

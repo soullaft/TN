@@ -116,7 +116,7 @@ namespace TR.Data
         {
             using (var connection = new MySqlConnection(ConnectionDB.Connection))
             {
-                string query = "INSERT INTO Employers (RNumber,FIO,Phone,Email,Login,Password,Image, Role) values (@Room,@FIO,@Phone,@Email,@Login,@Password,@Image, @Role)";
+                string query = "INSERT INTO Employers (RNumber,FIO,Phone,Email,Login,Password,Image, Role, Online) values (@Room,@FIO,@Phone,@Email,@Login,@Password,@Image, @Role, 2)";
 
                 var cmd = new MySqlCommand(query, connection);
 
@@ -245,6 +245,22 @@ namespace TR.Data
                     }
                 }
                 await connection.CloseAsync();
+            }
+        }
+
+        public static void DeleteUser(long id)
+        {
+            using (var connection = new MySqlConnection(ConnectionDB.Connection))
+            {
+                connection.Open();
+
+                new MySqlCommand($"DELETE FROM Notifications WHERE IDEmployee ={id}", connection).ExecuteNonQuery();
+                new MySqlCommand($"DELETE FROM Requests WHERE IDEmpl ={id}", connection).ExecuteNonQuery();
+                new MySqlCommand($"DELETE FROM Employers WHERE ID ={id}", connection).ExecuteNonQuery();
+
+                UsersCollection.Remove(UsersCollection.Where(x => x.ID == id).First());
+
+                connection.Close();
             }
         }
 

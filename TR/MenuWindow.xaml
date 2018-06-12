@@ -10,7 +10,7 @@
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Width="900"
+        Width="960"
         Height="700"
         MinWidth="530"
         MinHeight="450"

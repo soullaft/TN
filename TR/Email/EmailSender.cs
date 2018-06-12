@@ -73,9 +73,7 @@ namespace TR.Email
         {
             //Пробегаемся по каждому выбранному файлу и добавляем его в коллекцию вложений
             foreach (var item in OpenDialog())
-            {
                 attachmentsView.Add(new AttachmentControl(item));
-            }
         }
 
         /// <summary>
@@ -127,7 +125,7 @@ namespace TR.Email
         /// <summary>
         /// Очищает список файлов для рассылки
         /// </summary>
-        private void ClearAttachments()
+        private  void ClearAttachments()
         {
             attachmentsView.Clear();
         }
@@ -156,7 +154,7 @@ namespace TR.Email
         public void Send(String To = "")
         {
             //Кому будет отправлено письмо
-            mailMessage.To.Add(this.To);
+             mailMessage.To.Add(this.To);
 
             foreach (var item in attachmentsView)
                 mailMessage.Attachments.Add(new Attachment(item.Path));
@@ -170,7 +168,7 @@ namespace TR.Email
             //Отправляем сообщение
             smtp.Send(mailMessage);
 
-            ClearAttachments();
+            mailMessage.Attachments.Clear();
 
             //Задействуем сборку мусора
             GC.Collect();
