@@ -69,15 +69,29 @@ namespace TR.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DeleteUser_Click(object sender, RoutedEventArgs e)
+        private void ShowDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             if (dataGrid.SelectedItem != null)
             {
-                if (MessageBox.Show("Вы действительно хотите удалить этого пользователя?", "Внимание!") == MessageBoxResult.OK)
+
+                deleteUserGrid.Visibility = Visibility.Visible;
+
+                AnimationHelper.StartAnimation(this, "ShowDeleteGrid", delegate
                 {
-                    EmployeeService.DeleteUser((dataGrid.SelectedItem as Employee).ID);
-                }
+                    dataGrid.Effect = UIHelper.GetBlur();
+
+                    BlockActions(false);
+                });
+
+
             }
+        }
+
+        private void DeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            CanselDeleteUser_Click(sender, new RoutedEventArgs());
+
+            EmployeeService.DeleteUser((dataGrid.SelectedItem as Employee).ID);
         }
         #endregion
 
@@ -125,6 +139,33 @@ namespace TR.Pages
             dataGrid.ItemsSource = null;
 
             dataGrid.ItemsSource = EmployeeService.UsersCollection;
+        }
+
+        /// <summary>
+        /// Отменить удаление пользователя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CanselDeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            AnimationHelper.StartAnimation(this, "HideDeleteGrid", delegate
+            {
+                deleteUserGrid.Visibility = Visibility.Collapsed;
+
+                dataGrid.Effect = null;
+
+                BlockActions(true);
+            });
+        }
+
+        /// <summary>
+        /// Блокирует/разблокирует действия
+        /// </summary>
+        /// <param name="value">false - заблокировать, true - разблокировать</param>
+        private void BlockActions(bool value)
+        {
+            dataGrid.IsEnabled = value;
+            topMenu.IsEnabled = value;
         }
     }
 }

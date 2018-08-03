@@ -139,7 +139,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -403,7 +405,9 @@
     <Resource Include="Images\black.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Connection.xml" />
+    <Resource Include="Connection.xml">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Screenshot_47.png" />

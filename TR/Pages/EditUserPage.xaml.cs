@@ -110,7 +110,7 @@ namespace TR.Pages
 
         private void EditUser_Click(object sender, RoutedEventArgs e)
         {
-            if (profilePhoto.Source != null && !String.IsNullOrEmpty(surnameText.Text) && !String.IsNullOrEmpty(nameText.Text) && !String.IsNullOrEmpty(midnameText.Text)
+            if (!String.IsNullOrEmpty(surnameText.Text) && !String.IsNullOrEmpty(nameText.Text) && !String.IsNullOrEmpty(midnameText.Text)
                 && !String.IsNullOrEmpty(roomText.Text) && !String.IsNullOrEmpty(emailText.Text) && !String.IsNullOrEmpty(phoneText.Text) && !String.IsNullOrEmpty(loginText.Text))
             {
 

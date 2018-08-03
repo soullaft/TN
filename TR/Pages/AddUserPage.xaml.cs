@@ -1,15 +1,13 @@
 ﻿using Microsoft.Win32;
-using MySql.Data.MySqlClient;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TR.Data;
 using TR.ExcelHelper;
-using TR.MainData;
 
 namespace TR.Pages
 {
@@ -30,7 +28,11 @@ namespace TR.Pages
         /// </summary>
         public string Path { get; set; }
 
+        #region Constructor
 
+        /// <summary>
+        /// Конструктор по-умолчанию
+        /// </summary>
         public AddUserPage()
         {
             InitializeComponent();
@@ -39,6 +41,8 @@ namespace TR.Pages
 
             usersGrid.DataContext = excelReader;
         }
+
+        #endregion
 
 
         /// <summary>
@@ -100,6 +104,29 @@ namespace TR.Pages
                 && ((bool)admin.IsChecked || (bool)user.IsChecked || (bool)tech.IsChecked))
             {
 
+                //Если введенный email уже есть в базе данных
+                if(EmployeeService.UsersCollection.Count(user => user.Email == emailText.Text.Trim()) > 0)
+                {
+
+                }
+
+                //Если введенный телефон уже есть в базе данных
+                if (EmployeeService.UsersCollection.Count(user => user.Phone == phoneText.Text.Trim()) > 0)
+                {
+
+                }
+
+                //Если введенный email уже есть в базе данных
+                if (EmployeeService.UsersCollection.Count(user => user.Login == loginText.Text.Trim()) > 0)
+                {
+
+                }
+
+                // Если длина пароля меньше 6 символов
+                if(passText.Password.Length < 6)
+                {
+
+                }
                 Roles role;
 
                 if ((bool)admin.IsChecked)
@@ -109,6 +136,7 @@ namespace TR.Pages
                 else
                     role = Roles.User;
 
+
                 Employee employee = new Employee()
                 {
                     FIO = surnameText.Text.Trim() + " " + nameText.Text.Trim() + " " + midnameText.Text.Trim(),
@@ -117,12 +145,21 @@ namespace TR.Pages
                     Phone = phoneText.Text.Trim(),
                     Type = role,
                     Login = loginText.Text.Trim(),
-                    Image = new BitmapImage(new Uri(Path)) ?? null,
                     Password = HashCode.GenerateHash(repeatPassText.Password.Trim()),
                     Status = "Не в сети"
                 };
 
-                EmployeeService.AddUserAsync(employee, Path.Substring(Path.LastIndexOf(".") + 1), profilePhoto.Source);
+                if (string.IsNullOrEmpty(Path))
+                {
+                    employee.Image = null;
+                    EmployeeService.AddUserAsync(employee);
+                }
+                else
+                {
+                    employee.Image = new BitmapImage(new Uri(Path));
+                    EmployeeService.AddUserAsync(employee, Path.Substring(Path.LastIndexOf(".") + 1), profilePhoto.Source);
+                }
+                
 
                 CanseAddUserGrid_Click(this, new RoutedEventArgs());
 

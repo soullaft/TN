@@ -31,6 +31,7 @@ namespace TR.MainData
                 {
                     if (childnode.Name == "server")
                         Server = childnode.InnerText;
+
                     if (childnode.Name == "database")
                         DataBase = childnode.InnerText;
 
@@ -46,7 +47,7 @@ namespace TR.MainData
         static string Connect()
         {
             return "server=" + Server + ";user=" + User + ";database=" +
-                DataBase + ";password=" + Password + ";";
+                DataBase + ";password=" + Password + ";charset=utf8;";
         }
 
         public static void UpdateSettings()
@@ -55,7 +56,6 @@ namespace TR.MainData
             DataBase = Settings.Default.database1;
             User = Settings.Default.user1;
             Password = Settings.Default.password1;
-            Charset = Settings.Default.charset;
         }
     }
 }

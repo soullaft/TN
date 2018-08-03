@@ -28,7 +28,43 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        
+        <Storyboard x:Key="ShowDeleteGrid">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="deleteUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="deleteUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="HideDeleteGrid">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="deleteUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="deleteUserGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
     </Page.Resources>
     <Page.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -46,10 +82,10 @@
             </TransformGroup>
         </Grid.RenderTransform>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/> 
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <!-- Верхняя панель -->
         <Grid Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 0 10">
             <Grid.ColumnDefinitions>
@@ -59,8 +95,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
-            <Menu Grid.Column="0">
+
+            <!-- Меню верхней панели -->
+            <Menu Grid.Column="0" x:Name="topMenu">
                 <MenuItem VerticalAlignment="Center" Click="RefreshUsersStatus_Click">
                     <MenuItem.Header>
                         <Grid>
@@ -112,6 +149,9 @@
                 </TextBox.ToolTip>
             </TextBox>
         </Grid>
+
+
+        <!-- Таблица -->
         <DataGrid x:Name="dataGrid" CanUserDeleteRows="False" SelectionMode="Single" 
                       CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True"
                       Grid.Row="1" Margin="0,0,0,10"
@@ -150,7 +190,7 @@
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
-                    <MenuItem Cursor="Hand" Click="DeleteUser_Click">
+                    <MenuItem Cursor="Hand" Click="ShowDeleteUser_Click">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="AccountRemove" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="#FFB04B62"/>
@@ -175,5 +215,50 @@
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
+
+        <!-- Удалить пользователя -->
+        <Border Grid.Row="1" Panel.ZIndex="1"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                BorderThickness="2" CornerRadius="10" Padding="10"
+                x:Name="deleteUserGrid"
+                Visibility="Collapsed" RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Border.RenderTransform>
+
+            <Grid HorizontalAlignment="Center">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Вы действительно хотите удалить этого пользователя?"
+                           FontWeight="Bold"/>
+
+                <Grid Grid.Row="1" HorizontalAlignment="Center">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Content="Удалить" 
+                            Background="#FFB64343" BorderBrush="#FFB64343"
+                            Margin="30,10,50,0"
+                            Click="DeleteUser_Click"/>
+                    <Button Content="Отменить" Grid.Column="1" Margin="30,10,50,0"
+                            Click="CanselDeleteUser_Click"/>
+                </Grid>
+            </Grid>
+
+        </Border>
+
     </Grid>
 </Page>

@@ -153,13 +153,14 @@ namespace TR
 
                     var query = $"UPDATE Employers SET Password = '{employee.Password}' WHERE ID = {employee.ID}";
 
+
                     Task.Run(() =>
                     {
                         connection.Open();
-                        var cmd = new MySqlCommand(query, connection);
-                        cmd.ExecuteNonQuery();
+                        new MySqlCommand(query, connection).ExecuteNonQuery();
 
-                        EmployeeService.UsersCollection.Where(x => x.ID == employee.ID).FirstOrDefault().Update(employee);
+                        //Обновляем коллекцию пользователей
+                        EmployeeService.UsersCollection.Where(user => user.ID == employee.ID).FirstOrDefault().Update(employee);
                     });
 
                     var loginPage = new LoginPage();

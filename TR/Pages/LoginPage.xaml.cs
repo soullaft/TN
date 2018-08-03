@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -150,8 +151,11 @@ namespace TR
         /// <param name="e"></param>
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await EmployeeService.FillEmployeersAsync();
-
+            try
+            {
+                await EmployeeService.FillEmployeersAsync();
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message, ex.Source); }
             enterButton.IsEnabled = true;
             label.IsEnabled = true;
             password.KeyDown += Password_KeyDown;

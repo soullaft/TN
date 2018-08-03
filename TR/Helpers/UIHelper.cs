@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media.Effects;
 
 namespace TR
 {
@@ -15,5 +16,15 @@ namespace TR
             (Application.Current.MainWindow as MenuWindow).horrizontalMenu.IsEnabled = true;
             (Application.Current.MainWindow as MenuWindow).dopMenu.IsEnabled = true;
         }
+
+        /// <summary>
+        /// Эффект замыливания
+        /// </summary>
+        /// <returns></returns>
+        public static BlurEffect GetBlur() => new BlurEffect()
+        {
+            Radius = 5,
+            RenderingBias = RenderingBias.Performance
+        };
     }
 }
