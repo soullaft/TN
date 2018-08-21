@@ -166,6 +166,7 @@
     <Compile Include="ForUser\URequest.xaml.cs">
       <DependentUpon>URequest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\HashCode.cs" />
     <Compile Include="Helpers\ImageConverter.cs" />
     <Compile Include="Helpers\InternetState.cs" />

@@ -34,6 +34,7 @@ namespace TR
 
         #endregion
 
+        //
         #region Конструктор
         /// <summary>
         /// Конструктор по-умолчанию 
