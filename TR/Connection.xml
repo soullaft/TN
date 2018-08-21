@@ -2,9 +2,9 @@
 <ConnectionString>
 
   <default name="default">
-    <server>soullaqd.beget.tech</server>
-    <database>soullaqd_tn</database>
-    <user>soullaqd_tn</user>
-    <password>fxbadawh12</password>
+    <server>localhost</server>
+    <database>TN</database>
+    <user>root</user>
+    <password></password>
   </default>
 </ConnectionString>
